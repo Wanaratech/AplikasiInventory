@@ -1,6 +1,6 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{{asset('/')}}LoginAsset/loginStyle.css">
+<script src="{{asset('/')}}LoginAsset/LoginJS.js"></script>
+<script src="{{asset('/')}}LoginAsset/loginsec.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <body>
@@ -11,6 +11,7 @@
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
                         <form id="login-form" class="form" action="" method="post">
+                            @csrf
                             <h3 class="text-center text-info">Login</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Username:</label><br>
@@ -35,6 +36,8 @@
     </div>
 </body>
 <style>
+
+
 
 body {
   margin: 0;
