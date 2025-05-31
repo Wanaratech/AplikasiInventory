@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 route::middleware(['guest'])->group(function(){
     Route::controller(ControllerAuthUser::class)->group(function(){
-        route::get('/','DirrectLoginNonUser');
+        route::get('/','DirrectLoginNonUser')->name('login');
         route::get('/tambahuser','UseraddBackend');
+
+        route::post('/registerUser','Registeruser');
     });
     
 

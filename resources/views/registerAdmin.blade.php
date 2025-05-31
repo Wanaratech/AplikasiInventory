@@ -1,8 +1,12 @@
 <link rel="stylesheet" href="{{asset('/')}}LoginAsset/loginStyle.css">
 <script src="{{asset('/')}}LoginAsset/LoginJS.js"></script>
 <script src="{{asset('/')}}LoginAsset/loginsec.js"></script>
+
+<script src="{{assets('/')}}SweetAlert/SweetalertAll.js"></script>
+<link href="{{assets('/')}}SweetalertN.css" rel="stylesheet">
+
 <!------ Include the above in your HEAD tag ---------->
-<title>Login</title>
+<title>Daftar</title>
 <body>
     <div id="login">
         <h3 class="text-center text-white pt-5">Selamat Datang di Aplikasi Inventory Duta Utama Grafika</h3>
@@ -15,8 +19,8 @@
                             <h3 class="text-center text-info">Silahkan Login</h3>
                             
                             <div class="form-group">
-                                <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
+                                <label for="Nama" class="text-info">Nama:</label><br>
+                                <input type="text" name="nama" id="Nama" class="form-control">
                             </div>
 
                              <div class="form-group">
@@ -29,6 +33,20 @@
                                 <label for="password" class="text-info">Password:</label><br>
                                 <input type="text" name="password" id="password" class="form-control">
                             </div>
+
+
+                              <div class="form-group">
+                                <label for="password" class="text-info">Jenis Akun:</label><br>
+                                  <select name = "jenisAkun" class="form-control" aria-label="Default select example">
+                                    <option value="Admin">Admin</option>
+                                    <option value="Kasir">Kasir</option>
+                                   
+                                    </select>
+                            </div>
+
+
+                          
+
                             <div class="form-group">
                                 <br>
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
@@ -41,11 +59,14 @@
                             <br>
 
                                </form>
+                            
                      
                     </div>
                 </div>
             </div>
         </div>
+           <br>
+           <br>
     </div>
 </body>
 <style>

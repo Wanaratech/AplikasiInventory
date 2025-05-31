@@ -1,7 +1,12 @@
 <link rel="stylesheet" href="{{asset('/')}}LoginAsset/loginStyle.css">
 <script src="{{asset('/')}}LoginAsset/LoginJS.js"></script>
 <script src="{{asset('/')}}LoginAsset/loginsec.js"></script>
+
+<script src="{{assets('/')}}SweetAlert/SweetalertAll.js"></script>
+<link href="{{assets('/')}}SweetalertN.css" rel="stylesheet">
 <!------ Include the above in your HEAD tag ---------->
+
+
 <title>Login</title>
 <body>
     <div id="login">
