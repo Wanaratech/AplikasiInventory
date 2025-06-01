@@ -2,8 +2,8 @@
 <script src="{{asset('/')}}LoginAsset/LoginJS.js"></script>
 <script src="{{asset('/')}}LoginAsset/loginsec.js"></script>
 
-<script src="{{assets('/')}}SweetAlert/SweetalertAll.js"></script>
-<link href="{{assets('/')}}SweetalertN.css" rel="stylesheet">
+<script src="{{asset('/')}}SweetAlert/SweetalertAll.js"></script>
+<link href="{{asset('/')}}SweetalertN.css" rel="stylesheet">
 <!------ Include the above in your HEAD tag ---------->
 
 

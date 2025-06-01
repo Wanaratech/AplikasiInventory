@@ -19,7 +19,7 @@ route::middleware(['guest'])->group(function(){
         route::get('/','DirrectLoginNonUser')->name('login');
         route::get('/tambahuser','UseraddBackend');
 
-        route::post('/registerUser','Registeruser');
+        route::post('/registerUser','Registeruser')->name('userReg');
     });
     
 

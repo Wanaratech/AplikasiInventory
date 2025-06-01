@@ -2,8 +2,8 @@
 <script src="{{asset('/')}}LoginAsset/LoginJS.js"></script>
 <script src="{{asset('/')}}LoginAsset/loginsec.js"></script>
 
-<script src="{{assets('/')}}SweetAlert/SweetalertAll.js"></script>
-<link href="{{assets('/')}}SweetalertN.css" rel="stylesheet">
+<script src="{{asset('/')}}SweetAlert/SweetalertAll.js"></script>
+<link href="{{asset('/')}}SweetalertN.css" rel="stylesheet">
 
 <!------ Include the above in your HEAD tag ---------->
 <title>Daftar</title>
@@ -31,7 +31,7 @@
 
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="password" class="form-control">
                             </div>
 
 
