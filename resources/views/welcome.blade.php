@@ -9,22 +9,78 @@
 
 <title>Login</title>
 <body>
+
+
+    
+@if (session()->has('MsgDone'))
+    <script>
+
+    Swal.fire({
+    title: "Berhasil Daftar",
+    text: "Silahkan Login",
+    icon: "success"
+    });
+</script>
+    
+@endif
+
+
+@if (session()->has('errrormsg'))
+<script>
+
+    Swal.fire({
+    title: "Gagal!",
+    text: "Data Kamu Gagal Tersimpan!",
+    icon: "Error"
+    });
+</script>
+    
+@endif
+
+
+@if (session()->has('nullfield'))
+<script>
+
+    Swal.fire({
+    title: "Gagal!",
+    text: "Username atau password tidak boleh kosong",
+    icon: "error"
+    });
+</script>
+    
+@endif
+
+
+@if (session()->has('nullakun'))
+<script>
+
+    Swal.fire({
+    title: "Gagal!",
+    text: "Username Atau Password Salah",
+    icon: "warning"
+    });
+</script>
+    
+@endif
+
+
+
     <div id="login">
         <h3 class="text-center text-white pt-5">Selamat Datang di Aplikasi Inventory Duta Utama Grafika</h3>
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="logincek" method="post">
+                        <form id="login-form" class="form" action="/logincek" method="post">
                             @csrf
                             <h3 class="text-center text-info">Silahkan Login</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
+                                <input type="text"  name="username" id="username" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <input type="password"  name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <br>

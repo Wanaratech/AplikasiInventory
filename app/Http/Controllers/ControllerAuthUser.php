@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Error;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ControllerAuthUser extends Controller
 {
@@ -19,6 +21,55 @@ class ControllerAuthUser extends Controller
         return view('registerAdmin');
     }
 
+
+    ///Proses login
+    //public proses login untuk mengambil data dari user
+       public function proseslogin(Request $reqcredential){
+        
+            $usercredential =[
+
+                'username'=>$reqcredential->username,
+                'password'=>$reqcredential->password
+            ];
+
+
+            ///pass ke fungsi login dengan membawa isi usercredential
+        return $this->login($usercredential);
+    }
+
+    //fugnsi private login akan mengambil data dari proses login dan di eksekusi secara private untuk logika dengan mangambil isi berupa usercredentiala
+
+        
+        private function login( $usercredential){
+
+            if (  empty($usercredential['username']) ||
+                  empty($usercredential['password'])){
+                return redirect()->route('login')->with('nullfield','');
+            }
+            else{
+                if (Auth::attempt($usercredential)) {
+                    
+
+                    if (Auth::user()->jenis_akun =='Admin') {
+                        echo "admin";
+                    }elseif (Auth::user()->jenis_akun =='Kasir') {
+                        echo "kasir";
+                    }
+                }else{
+
+                    return redirect()->route('login')->with('nullakun','');
+                    
+                }
+           
+        }
+    }
+
+ 
+
+
+
+    ///proses daftar user
+
     public function Registeruser(request $reqdatainput)
     {
 
@@ -29,6 +80,8 @@ class ControllerAuthUser extends Controller
 
         $cekketersediaaan  = User::where('username','=',$username)->count();
 
+        //cek apakah akun tersedia atau tidak ?
+    
         if ($cekketersediaaan > 0) {
             return redirect()->route('userReg')->with('MsgAkunada','');
         }else{
@@ -49,7 +102,7 @@ class ControllerAuthUser extends Controller
 
 
         } catch (\Throwable $th) {
-            Echo"Gagal Simpan";
+            return redirect()->route('login')->with('errormsg','');
         }
 
         }

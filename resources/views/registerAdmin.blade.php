@@ -8,6 +8,18 @@
 <!------ Include the above in your HEAD tag ---------->
 <title>Daftar</title>
 <body>
+
+  @if (session()->has('MsgAkunada'))
+  <script>
+
+    Swal.fire({
+    title: "Perhatian",
+    text: "Username Tersebut Sudah Ada",
+    icon: "warning"
+    });
+</script>
+      
+  @endif
     <div id="login">
         <h3 class="text-center text-white pt-5">Selamat Datang di Aplikasi Inventory Duta Utama Grafika</h3>
         <div class="container">
@@ -20,18 +32,18 @@
                             
                             <div class="form-group">
                                 <label for="Nama" class="text-info">Nama:</label><br>
-                                <input type="text" name="nama" id="Nama" class="form-control">
+                                <input type="text" required name="nama" id="Nama" class="form-control">
                             </div>
 
                              <div class="form-group">
                                 <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
+                                <input type="text" required name="username" id="username" class="form-control">
                             </div>
 
 
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="password" name="password" id="password" class="form-control">
+                                <input type="password" required name="password" id="password" class="form-control">
                             </div>
 
 
