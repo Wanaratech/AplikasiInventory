@@ -17,6 +17,12 @@ class AdminController extends Controller
     }
 
 
+    public function ProfileAdmin(){
+
+        
+    }
+
+
      public function logout(){
 
          Auth::logout();
@@ -26,3 +32,5 @@ class AdminController extends Controller
             return redirect()->route('login');
     }
 }
+
+

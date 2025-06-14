@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function(){
     Route::middleware('userauth:Admin')->group(function(){
         Route::controller(AdminController::class)->group(function(){
             Route::get('/Admin/Home','HomeAdmin');
+            route::get('/Admin/profile','ProfileAdmin');
             Route::get('/logout','logout');
         });
         
