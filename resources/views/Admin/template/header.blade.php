@@ -18,6 +18,8 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('/')}}css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="{{asset('/')}}SweetAlert/SweetalertAll.js"></script>
+    <link href="{{asset('/')}}SweetalertN.css" rel="stylesheet">
 
 </head>
 

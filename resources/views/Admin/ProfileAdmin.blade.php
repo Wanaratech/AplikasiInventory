@@ -7,27 +7,74 @@
     <h2>Profile {{ Auth::user()->jenis_akun }}</h2>
 @endsection
 @section('Content1')
-   <form>
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
+  @if (session()->has('MsgAkunada'))
+  <script>
+
+    Swal.fire({
+    title: "Perhatian",
+    text: "Username Tersebut Sudah Ada",
+    icon: "warning"
+    });
+</script>
+      
+  @endif
+
+    @if (session()->has('MsgBerhasilUp'))
+  <script>
+
+    Swal.fire({
+    title: "Berhasil",
+    text: "Berhasil Update",
+    icon: "success"
+    });
+</script>
+      
+  @endif
+
+ 
+    @if (session()->has('gagal'))
+  <script>
+
+    Swal.fire({
+    title: "Gagal",
+    text: "Gagal Update",
+    icon: "error"
+    });
+</script>
+      
+  @endif
+
+   <form method="POST" action="/Admin/UpdateDataAdmin">
+    @csrf
+
+    <input type="text" value = {{Auth::user()->id}} name = "id" hidden>
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Nama</label>
-    <input type="text" readonly class="form-control" id="exampleInputEmail1" value="{{ Auth::user()->name }}" aria-describedby="emailHelp">
+    <input type="text"  class="form-control" id="exampleInputEmail1"  name = "nama" value="{{ Auth::user()->name }}" aria-describedby="emailHelp">
     
   </div>
 
    <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">User Name</label>
-    <input type="text" readonly class="form-control" id="exampleInputEmail1" value="{{ Auth::user()->username }}" aria-describedby="emailHelp">
+    <input type="text"  class="form-control" id="exampleInputEmail1" name = "username" value="{{ Auth::user()->username }}" aria-describedby="emailHelp">
     
   </div>
 
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+
+
+  <button type="submit" name="submit" value = "input" class="btn btn-primary">Update Data</button>
+  <button type="submit" name="cancel"  value ="cancel" class="btn btn-danger">Cancle</button>
 </form>
 @endsection
