@@ -60,6 +60,13 @@
 
     Table Kategori Barang
 -->
+<form action="/Admin/Barang/TambahKategori">
+  @csrf
+
+  <button type="submit" class = "btn btn-primary">Tambah Kategori</button>
+ 
+</form>
+ <br>
 <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Data kategori Barang</h6>
