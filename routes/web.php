@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ControllerAuthUser;
+use App\Http\Controllers\ControllerBarangAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,8 +44,15 @@ Route::middleware(['auth'])->group(function(){
             ///
             Route::get('/logout','logout');
 
+
+            ///barang
+         
+
         });
-        
+
+         Route::controller(ControllerBarangAdmin::class)->group(function(){
+            route::get('/Admin/Barang/Kategori','KategoriBarangView');
+         });
     });
 
 });
