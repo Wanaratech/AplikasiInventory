@@ -11,4 +11,10 @@ class ControllerBarangAdmin extends Controller
 
             return view('Admin.Barang.kategori');
          }
+
+
+         public function TambahKategoriBarang(){
+
+            return view('Admin.Barang.TambahKategoriBarang');
+         }
 }

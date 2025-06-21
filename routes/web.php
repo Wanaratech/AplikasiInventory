@@ -52,6 +52,8 @@ Route::middleware(['auth'])->group(function(){
 
          Route::controller(ControllerBarangAdmin::class)->group(function(){
             route::get('/Admin/Barang/Kategori','KategoriBarangView');
+
+            route::post('/Admin/Barang/TambahKategori','TambahKategoriBarang');
          });
     });
 

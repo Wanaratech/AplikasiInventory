@@ -60,7 +60,7 @@
 
     Table Kategori Barang
 -->
-<form action="/Admin/Barang/TambahKategori">
+<form action="/Admin/Barang/TambahKategori" method="POST">
   @csrf
 
   <button type="submit" class = "btn btn-primary">Tambah Kategori</button>
@@ -76,12 +76,8 @@
  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>id</th>
+                                            <th>Nama Kategori</th>
                                         </tr>
                                     </thead>
                                     
@@ -89,10 +85,7 @@
                                         <tr>
                                             <td>Tiger Nixon</td>
                                             <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                            
                                         </tr>
                                         
                                     </tbody>
