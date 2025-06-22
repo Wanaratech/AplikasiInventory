@@ -63,7 +63,18 @@
                                              <tr>
                                                     <td>{{ $data['id'] }}</td>
                                                     <td>{{ $data['Kategori'] }}</td>
-                                                    <td><i ><a class="fa fa-cogs" style="text-decoration:none;color:lightblue" href="">Edit</a></i> || <i ><a class="fa fa-cogs" style="text-decoration:none;color:lightblue" href="">Edit</a></i></td>
+                                                    <td>
+                                                             
+
+                                                        <select class="select-button-style">
+                                                        <option selected disabled>Ubah</option>
+                                                        <option value="edit">Edit</option>
+                                                        <option value="hapus">Hapus</option>
+                                                        <option value="detail">Detail</option>
+                                                        </select>
+
+                                                               
+                                                    </td>
                                             
                                             </tr>
                                         @endforeach
