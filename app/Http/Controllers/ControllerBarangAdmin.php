@@ -66,8 +66,30 @@ class ControllerBarangAdmin extends Controller
          }
 
 
-         public function EditKategori($id){
+         public function ToolsKategori(Request $reqdataTools ){
 
-            echo $id;
+            $id  = $reqdataTools->idKategori;
+
+
+            $tools = ['edit','hapus'];
+
+            $TlsEdit = $reqdataTools->edit;
+            $TlsHapus = $reqdataTools->hapus;
+
+            if ($TlsEdit == $tools[0]) {
+                $selectKategori = [
+               
+               'datakategori'=>ModelKategoriBarang::where('id','=',$id)->first()
+               ];
+
+               return view('Admin.Barang.EditKategori',$selectKategori);
+            }elseif ($TlsHapus == $tools[1]) {
+               
+               ModelKategoriBarang::where('id','=',$id)->delete();
+
+               return redirect()->route('Kategori')->with('msgdonehps','');
+            }
+
+           
          }
 }

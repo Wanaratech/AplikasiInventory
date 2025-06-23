@@ -19,6 +19,18 @@
       
   @endif
 
+  @if (session()->has('msgdonehps'))
+  <script>
+
+    Swal.fire({
+    title: "Berhasil",
+    text: "Berhasil Dihapus ",
+    icon: "success"
+    });
+</script>
+      
+  @endif
+
  
     @if (session()->has('gagal'))
   <script>
@@ -64,19 +76,22 @@
                                                     <td>{{ $data['id'] }}</td>
                                                     <td>{{ $data['Kategori'] }}</td>
                                                     <td>
-                                                      
-                                            <div class="select-wrapper">
-                                               <select class="select-button-style" onchange="handleSelectRedirect(this)">
-                                                <option selected disabled>Ubah</option>
-                                                <option value="{{ url('Admin/kategori/edit/' . $data->id) }}">Edit</option>
-                                                <option value="{{ url('Admin/kategori/hapus/' . $data->id) }}">Hapus</option>
-                                                </select>
-                                                                 </div>
-                                                       
+                                                      <div class="dropdown">
+                                                          <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                            Menus
+                                                          </button>
+                                                          <ul class="dropdown-menu">
+                                                            <form action="/Admin/Barang/ToolsEdit" method="POST">
+                                                              @csrf
+                                                              <input type="text" hidden name = "idKategori" value="{{ $data['id'] }}">
+                                                            <li><button class="dropdown-item" type="submit" name ="edit" value = "edit">Edit</button></li>
+                                                            <li><button class="dropdown-item" type="submit" name ="hapus" value ="hapus">Hapus</button></li>
+                                                          
+                                                            </form>
+                                                          </ul>
+                                                        </div>
 
-
-                                                                
-                                                                                                               
+                                                                                     
                                                     </td>
                                             
                                             </tr>
