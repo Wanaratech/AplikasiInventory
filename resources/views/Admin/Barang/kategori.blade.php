@@ -19,6 +19,18 @@
       
   @endif
 
+  @if (session()->has('msgdoneEdt'))
+  <script>
+
+    Swal.fire({
+    title: "Berhasil",
+    text: "Berhasil Edit Kategori",
+    icon: "success"
+    });
+</script>
+      
+  @endif
+
   @if (session()->has('msgdonehps'))
   <script>
 
@@ -37,7 +49,7 @@
 
     Swal.fire({
     title: "Gagal",
-    text: "Gagal Update",
+    text: "Kesalahan",
     icon: "error"
     });
 </script>

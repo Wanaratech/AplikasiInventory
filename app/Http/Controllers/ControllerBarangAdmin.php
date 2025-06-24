@@ -58,6 +58,8 @@ class ControllerBarangAdmin extends Controller
 
             } catch (\Throwable $th) {
                //throw $th;
+           
+                 return redirect()->route('Kategori')->with('gagal','');
 
           
 
@@ -91,5 +93,48 @@ class ControllerBarangAdmin extends Controller
             }
 
            
+         }
+
+
+
+         ///edit kategori 
+
+         public function EditKategori(request $reqdataedit){
+
+            $dataedit = [
+
+               'id'=>$reqdataedit->id,
+               'kategori'=>$reqdataedit->kategori
+            ];
+
+
+            return $this->prosesEditKategori($dataedit);
+         }
+
+
+         private function prosesEditKategori($dataedit){
+
+            $Update = ModelKategoriBarang::find($dataedit['id']);
+
+
+            try {
+               //code...
+
+               $Update->Kategori = $dataedit['kategori'];
+
+                $Update->save();
+
+                return redirect()->route('Kategori')->with('msgdoneEdt','');
+
+            } catch (\Throwable $th) {
+               //throw $th;
+
+               return redirect()->route('Kategori')->with('gagal','');
+
+
+            }
+
+            
+
          }
 }

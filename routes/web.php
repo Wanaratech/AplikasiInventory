@@ -58,6 +58,8 @@ Route::middleware(['auth'])->group(function(){
 
             //route nama route {yang akan di pass}
             route::POST('/Admin/Barang/ToolsEdit','ToolsKategori');
+
+            route::post ('/Admin/Barang/EditKatagori','EditKategori');
          });
     });
 
