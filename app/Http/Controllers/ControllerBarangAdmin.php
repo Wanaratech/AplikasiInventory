@@ -147,4 +147,14 @@ class ControllerBarangAdmin extends Controller
             return view('Admin.Barang.DataBarang');
          }
 
+
+         public function TambahBarang(){
+
+            $ArrGetKategori = [
+               'datakategori'=>ModelKategoriBarang::all(),
+            ];
+
+            return view('Admin.Barang.TambahBarang');
+         }
+
 }
