@@ -24,6 +24,10 @@
     <script src="{{asset('/')}}SweetAlert/SweetalertAll.js"></script>
     <link href="{{asset('/')}}SweetalertN.css" rel="stylesheet">
 
+    <!-- Tom Select CSS -->
+    <link href="{{asset('/')}}css/tomselect.css" rel="stylesheet">
+
+
 </head>
 
 <body id="page-top">

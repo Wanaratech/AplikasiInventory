@@ -151,10 +151,10 @@ class ControllerBarangAdmin extends Controller
          public function TambahBarang(){
 
             $ArrGetKategori = [
-               'datakategori'=>ModelKategoriBarang::all(),
+               'datakategori'=>ModelKategoriBarang::all()
             ];
 
-            return view('Admin.Barang.TambahBarang');
+            return view('Admin.Barang.TambahBarang',$ArrGetKategori);
          }
 
 }

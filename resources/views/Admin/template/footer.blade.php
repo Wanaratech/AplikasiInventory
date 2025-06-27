@@ -61,8 +61,26 @@
         <!-- Page level custom scripts -->
     <script src="{{ asset('/') }}js/demo/datatables-demo.js"></script>
 
+    <!-- Tom Select JS -->
+    <script src="{{asset('/')}}js/tomselect.js"></script>
+    
+<script>
+    new TomSelect("#Dropdown-data", {
+        create: false, 
+        sortField: {
+            field: "text",
+            direction: "asc"
+        },
+        maxItems: 1
+        
+    });
+</script>
+
+
 
 </body>
+
+
 
 </html>
 

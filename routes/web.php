@@ -52,7 +52,8 @@ Route::middleware(['auth'])->group(function(){
          Route::controller(ControllerBarangAdmin::class)->group(function(){
             //Barang
             route::get('/Admin/Barang/DataBarang','DataBarang')->name('Barang');
-            route::post('/Admin/Barang/TambahBaran','TambahBarang');
+            route::post('/Admin/Barang/TambahBarang','TambahBarang');
+            route::post('/Admin/Barang/AddBarang','Addbarang');
 
 
             //Kategori
