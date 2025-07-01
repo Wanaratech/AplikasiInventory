@@ -51,6 +51,19 @@
   </div>
 
 
+    <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Harga Jual</label>
+    <input type="text"  class="form-control" id="exampleInputEmail1" name = "hargajual"  value = {{ $barang['HargaJual']}} aria-describedby="emailHelp">
+    
+  </div>
+
+    <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Harga Beli</label>
+    <input type="text"  class="form-control" id="exampleInputEmail1" name = "hargamodal"  value = {{ $barang['HargaModal']}} aria-describedby="emailHelp">
+    
+  </div>
+
+
 
   <button type="submit" name="submit" value = "input" class="btn btn-primary">Edit Kategori</button>
 

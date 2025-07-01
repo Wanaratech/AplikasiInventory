@@ -214,6 +214,7 @@ class ControllerBarangAdmin extends Controller
                'edit'=>$reqTools->edit,
                'hapus'=>$reqTools->hapus,
                'sembunyi'=>$reqTools->sembunyi,
+               'detail'=>$reqTools->detail,
                'id'=>$reqTools->idbarang
 
 
@@ -242,18 +243,32 @@ class ControllerBarangAdmin extends Controller
                 return redirect()->route('Barang')->with('msgdoneEdt','');
 
                
+            }elseif ($tools['detail'] !=Null) {
+              
+                  return $this->DetailBarang($id);
+               
             }
 
 
          }
 
 
-         public function EditbarangView($id){
+         Private function EditbarangView($id){
             $databarang =[
                'barang'=>ModelBarang::with('Kategoribr')->where('id','=',$id)->first(),
                'datakategori'=>ModelKategoriBarang::all()
             ];
             return view('Admin.Barang.Editbarang',$databarang);
+         }
+
+         Private function DetailBarang($id){
+             
+                  $getdata=[
+                     'databarang'=>ModelBarang::with('Kategoribr')->where('id','=',$id)->first()
+                  ];
+                   return view('Admin.Barang.DetailBarang',$getdata);
+
+
          }
 
 }
