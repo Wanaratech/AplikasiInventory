@@ -66,6 +66,9 @@ Route::middleware(['auth'])->group(function(){
             route::POST('/Admin/Barang/ToolsEdit','ToolsKategori');
             route::post ('/Admin/Barang/EditKatagori','EditKategori');
          });
+
+
+         
     });
 
 });

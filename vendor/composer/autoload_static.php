@@ -529,6 +529,7 @@ class ComposerStaticInit5fae7f98314c6fe29f8f769ec6ac9343
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\ControllerAuthUser' => __DIR__ . '/../..' . '/app/Http/Controllers/ControllerAuthUser.php',
         'App\\Http\\Controllers\\ControllerBarangAdmin' => __DIR__ . '/../..' . '/app/Http/Controllers/ControllerBarangAdmin.php',
+        'App\\Http\\Controllers\\ControllerStokAdmin' => __DIR__ . '/../..' . '/app/Http/Controllers/ControllerStokAdmin.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
