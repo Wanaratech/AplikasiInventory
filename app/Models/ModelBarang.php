@@ -24,4 +24,9 @@ class ModelBarang extends Model
     public function Kategoribr(){
         return $this->belongsTo(ModelKategoriBarang::class,'id_kategori');
     }
+
+    public function adabarangdiStok(){
+        return $this->hasmany(ModelStok::class,'idbarang')
+                    ->hasmany(ModelAlurStok::class,'idbarang');
+    }
 }
