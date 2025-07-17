@@ -71,6 +71,8 @@ Route::middleware(['auth'])->group(function(){
 
          route::controller(ControllerStokAdmin::class)->group(function(){
             route::get('/Admin/JumlahStokBarang','JumlahStokBarangView');
+            route::get('/Admin/AlurStok','Alurstokview');
+            route::post('/Admin/Stok/ToolsalurStok','ToolsAlurStok');
             
          });
 
