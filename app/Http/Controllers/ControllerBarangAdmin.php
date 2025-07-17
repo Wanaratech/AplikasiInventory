@@ -255,7 +255,13 @@ class ControllerBarangAdmin extends Controller
                //edit di sini
                return $this->EditbarangView($id);
             }elseif ($tools['hapus'] != NUll) {
-               # code...//LOGIKA DITAMBHKAN KETIKA SUDAH MENGERJAKAN TRANSAKSI
+               # code...//LOGIKA tidak boleh di hapus DITAMBHKAN KETIKA SUDAH MENGERJAKAN TRANSAKSI
+
+               //hapus di Stok Dulu
+               Modelstok::where('idbarang','=',$id)->delete();
+               ModelAlurStok::where('idbarang','=',$id)->delete();
+
+               //hapus barang
                ModelBarang::where('id','=',$id)->delete();
                return redirect()->route('Barang')->with('msgdonehps','');
              

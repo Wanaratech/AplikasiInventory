@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ControllerAuthUser;
 use App\Http\Controllers\ControllerBarangAdmin;
+use App\Http\Controllers\ControllerStokAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -65,6 +66,12 @@ Route::middleware(['auth'])->group(function(){
             route::post('/Admin/Barang/AddKatagori','KatagoriBarangAdd');
             route::POST('/Admin/Barang/ToolsEdit','ToolsKategori');
             route::post ('/Admin/Barang/EditKatagori','EditKategori');
+         });
+
+
+         route::controller(ControllerStokAdmin::class)->group(function(){
+            route::get('/Admin/JumlahStokBarang','JumlahStokBarangView');
+            
          });
 
 
