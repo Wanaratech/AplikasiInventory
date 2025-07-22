@@ -68,28 +68,12 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Stock:</h6>
                         <a class="collapse-item" href="/Admin/JumlahStokBarang">Jumlah Stok Barang</a>
-                        <a class="collapse-item" href="/Admin/Stockopname">Stock Opname</a>
-                        <a class="collapse-item" href="/Admin/AlurStok">Alur Stok</a>
+                        <a class="collapse-item" href="/Admin/StokControll">Stok Control</a>
                        
                     </div>
                 </div>
             </li>
 
-
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Nota</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
