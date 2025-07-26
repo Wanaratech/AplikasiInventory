@@ -83,7 +83,8 @@ class ControllerStokAdmin extends Controller
 
             'id' => $rqdataStokBarang ->id,
             'stokupdate' => $rqdataStokBarang->stokaktual,
-            'stokawal'=> $rqdataStokBarang->stoksistem
+            'stokawal'=> $rqdataStokBarang->stoksistem,
+            'pesan'=>$rqdataStokBarang->pesan
 
         ];
 
@@ -114,7 +115,8 @@ class ControllerStokAdmin extends Controller
             'idbarang'=>$databarang['id'],
             'Stok_Awal'=>$databarang['stokawal'],
             'Stok_Akhir'=> $databarang['stokupdate'],
-            'keterangan'=> $keterangan
+            'keterangan'=> $keterangan,
+            'pesan'=>$databarang['pesan']
             
         ]);
 

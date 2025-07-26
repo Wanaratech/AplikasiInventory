@@ -103,6 +103,7 @@
                                             <th>Stok Akhir</th>
                                             <th>Keterangan</th>
                                             <th>Tanggal</th>
+                                            <th>Pesan</th>
                                             
                                         </tr>
                                     </thead>
@@ -117,6 +118,8 @@
                                                       <td>{{ $data['Stok_Akhir'] }}</td>
                                                        <td>{{ $data['keterangan'] }}</td>
                                                        <td>{{$data['updated_at']}}</td>
+                                                       <td>{{$data['pesan']}}</td>
+
 
                                                    
                                             

@@ -11,7 +11,7 @@ class ModelAlurStok extends Model
         protected $table = 'tb_alur_stok';
 
     protected $primaryKey = 'id';
-    protected $fillable  = ['id','idbarang','Stok_Awal','Stok_Akhir','keterangan'];
+    protected $fillable  = ['id','idbarang','Stok_Awal','Stok_Akhir','keterangan','pesan'];
 
     public $timestamps = true;
 

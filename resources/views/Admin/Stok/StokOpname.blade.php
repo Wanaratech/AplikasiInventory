@@ -45,6 +45,12 @@
     
   </div>
 
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Pesan</label>
+     <textarea name = "pesan" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    
+  </div>
+
 
 
   <button type="submit" name="submit" value = "input" class="btn btn-primary">Opname Stok</button>
