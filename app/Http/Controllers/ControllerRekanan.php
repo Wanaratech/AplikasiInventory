@@ -131,4 +131,10 @@ class ControllerRekanan extends Controller
             
           
         }
+
+
+        public function PO(){
+
+            return view('Admin.PreOrder.POtest');
+        }
 }

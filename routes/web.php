@@ -85,6 +85,7 @@ Route::middleware(['auth'])->group(function(){
             route::post('/Admin/Rekanan/Addrekanan','Addrekanan');
             route::post('/Admin/Barang/ToolsRekanan','ToolsRekanan');
             route::post('/Admin/Rekanan/Editrekanan','Editrekanan');
+            route::get('/Admin/Rekanan/PO','PO');
 
             
          });
