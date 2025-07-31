@@ -102,4 +102,33 @@ class ControllerRekanan extends Controller
             return $this->ProsesEditRekanan ($DataRekananEdit);
 
         }
+
+        private function ProsesEditRekanan($DataRekananEdit){
+
+            $updateRekanan = ModelRekanan::find($DataRekananEdit['id']);
+
+
+            try {
+                //code...
+
+                  $updateRekanan -> fill([
+
+                'nama_rekanan'=>$DataRekananEdit['nama_rekanan'],
+                'alamat_rekanan'=>$DataRekananEdit['alamat']
+
+            ]);
+
+
+            $updateRekanan->save();
+            return redirect()->route('rekanan')->with('msgdoneEdt','');
+
+
+            } catch (\Throwable $th) {
+                //throw $th;
+
+                return redirect()->route('rekanan')->with('gagal','');
+            }
+            
+          
+        }
 }

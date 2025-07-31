@@ -24,7 +24,7 @@
 
     Swal.fire({
     title: "Berhasil",
-    text: "Berhasil Edit Barang",
+    text: "Berhasil Edit Rekanan",
     icon: "success"
     });
 </script>
