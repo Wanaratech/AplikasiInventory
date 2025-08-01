@@ -64,8 +64,19 @@
 <div class="container mt-4">
     <h4>Input Data Transaksi</h4>
 
+    <select name="id" class="form-control barang-dropdown w-50" >
+        <br>
+                            <option value="">Pilih Pelanggan</option>
+                            @foreach($dataRekanan as $rekanan)
+                                <option value="{{ $rekanan->id }}">{{ $rekanan->id }} - {{ $rekanan->nama_rekanan }}</option>
+                            @endforeach
+                        </select>
+
+                        <br>
+
     <form action="" method="POST">
         @csrf
+
 
         <table class="table table-bordered" id="tableInput">
             <thead>
@@ -100,9 +111,9 @@
     </form>
 </div>
 
-<!-- Include TomSelect -->
-<link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+
+    <!-- Tom Select JS -->
+    <script src="{{asset('/')}}js/tomselect.js"></script>
 
 <script>
     let rowIndex = 1;

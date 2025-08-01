@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ModelBarang;
+use App\Models\ModelRekanan;
 use Illuminate\Http\Request;
 
 class ControllerPreorder extends Controller
@@ -13,6 +14,7 @@ class ControllerPreorder extends Controller
         $datPerlu = [
 
             'databarang'=> ModelBarang::all(),
+            'dataRekanan'=>ModelRekanan::all()
 
         ];
 
