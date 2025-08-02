@@ -46,6 +46,8 @@ class ControllerPreorder extends Controller
 
         foreach ($items as $item) {
             
+             $cekhargabarang = ModelBarang::where('id','=',$item['barang'])->first();
+             echo $cekhargabarang['HargaJual'];
             
         }
     }

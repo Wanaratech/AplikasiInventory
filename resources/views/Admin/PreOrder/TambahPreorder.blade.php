@@ -105,6 +105,7 @@
                             <option value="">Pilih Barang...</option>
                             @foreach($databarang as $barang)
                                 <option value="{{ $barang->id }}">{{ $barang->id }} - {{ $barang->nama_barang }}</option>
+                                
                             @endforeach
                         </select>
                     </td>
