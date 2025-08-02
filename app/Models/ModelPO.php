@@ -9,7 +9,7 @@ class ModelPO extends Model
 {
     use HasFactory;
 
-    protected $table = 'tb_po';
+    protected $table = 'tb__p_o';
 
     protected $primaryKey = 'id';
     protected $fillable  = ['id','total','keterangan'];

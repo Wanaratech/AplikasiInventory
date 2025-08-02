@@ -94,8 +94,10 @@ Route::middleware(['auth'])->group(function(){
 
          route::controller(ControllerPreorder::class)->group(function(){
             route::get('/Admin/PreOrder/AddPreOrder','TambahPreorder');
+            route::get('/Admin/PO/DataPO','DataPO')->name('PurOrder');
 
             route::post('/Admin/PO/TambahPO','ProsesPO');
+            route::post('/Admin/PO/ToolsPO','detailPO');
          });
 
 

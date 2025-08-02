@@ -9,7 +9,7 @@ class ModelDetailPO extends Model
 {
     use HasFactory;
 
-    protected $table = 'tb_po_detail';
+    protected $table = 'tb__p_o_detail';
     protected $fillable  = ['id_po','id_rekanan','id_barang','qty','status','catatan'];
 
     public $timestamps = false;
@@ -19,15 +19,15 @@ class ModelDetailPO extends Model
 
     
     public function fpo(){
-        return $this->belongsTo(ModelPO::class,'id_po');
+        return $this->belongsTo(ModelPO::class,'id_po','id');
     }
 
     public function frekanan(){
-        return $this->belongsTo(ModelStok::class,'id_rekanan');
+        return $this->belongsTo(ModelRekanan::class,'id_rekanan','id');
     }
 
         public function fbarang(){
-        return $this->belongsTo(ModelStok::class,'id_barang');
+        return $this->belongsTo(ModelBarang::class,'id_barang','id');
     }
 
 

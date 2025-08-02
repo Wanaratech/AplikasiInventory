@@ -69,6 +69,14 @@
         
         @csrf
 
+
+        @php
+            $random = rand(0,19999999);
+        @endphp
+
+
+        <input type="text" hidden value="{{$random}}" name = "idpo">
+
         
     <select name="idrek" class="form-control barang-dropdown w-50" >
         <br>
