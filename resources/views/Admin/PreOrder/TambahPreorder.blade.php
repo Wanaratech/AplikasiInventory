@@ -64,6 +64,12 @@
 <div class="container mt-4">
     <h4>Input Data Transaksi</h4>
 
+
+    <form action="" method="POST">
+        
+        @csrf
+
+        
     <select name="id" class="form-control barang-dropdown w-50" >
         <br>
                             <option value="">Pilih Pelanggan</option>
@@ -74,16 +80,12 @@
 
                         <br>
 
-    <form action="" method="POST">
-        @csrf
-
 
         <table class="table table-bordered" id="tableInput">
             <thead>
                 <tr>
                     <th>Nama Barang</th>
                     <th>Jumlah</th>
-                    <th>Harga</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -98,7 +100,6 @@
                         </select>
                     </td>
                     <td><input type="number" name="items[0][jumlah]" class="form-control" required></td>
-                    <td><input type="number" name="items[0][harga]" class="form-control" required></td>
                     <td><button type="button" class="btn btn-danger btn-sm remove-row">Hapus</button></td>
                 </tr>
             </tbody>
