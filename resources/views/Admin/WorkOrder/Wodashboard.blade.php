@@ -1,164 +1,145 @@
 @extends('Admin.template.main')
 
 @section('judul')
-        Dashboard
+        Dashboard Work Order
 @endsection
 @section('Judulisi')
-    <h2>Dashboard</h2>
+    <h2>Dashboard Work Order</h2>
 @endsection
 @section('Content1')
-    <div class="container mt-4">
-    <form>
-        <!-- Tanggal -->
-        <div class="row mb-3">
-            <div class="col-md-3">
-                <label for="diterima_tgl" class="form-label">Diterima Tgl.</label>
-                <input type="date" class="form-control" id="diterima_tgl" name="diterima_tgl">
-            </div>
-            <div class="col-md-3">
-                <label for="selesai_tgl" class="form-label">Selesai Tgl.</label>
-                <input type="date" class="form-control" id="selesai_tgl" name="selesai_tgl">
-            </div>
-        </div>
+   
+@if (session()->has('msgdone'))
+  <script>
 
-        <!-- Data Pesanan -->
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label class="form-label">Nama Pemesan</label>
-                <input type="text" class="form-control" name="nama_pemesan">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Jenis Pesanan</label>
-                <input type="text" class="form-control" name="jenis_pesanan">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Jumlah Pesanan</label>
-                <input type="number" class="form-control" name="jumlah_pesanan">
-            </div>
-        </div>
+    Swal.fire({
+    title: "Berhasil",
+    text: "Berhasil Tambah Barang",
+    icon: "success"
+    });
+</script>
+      
+  @endif
 
-        <!-- Spesifikasi -->
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label class="form-label">Jenis Kertas</label>
-                <input type="text" class="form-control" name="jenis_kertas">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Warna Tinta</label>
-                <input type="text" class="form-control" name="warna_tinta">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Ukuran Cetak</label>
-                <input type="text" class="form-control" name="ukuran_cetak">
-            </div>
-        </div>
+  @if (session()->has('msgdoneEdt'))
+  <script>
 
-        <!-- Ukuran & Rangka -->
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label class="form-label">Ukuran Jadi</label>
-                <input type="text" class="form-control" name="ukuran_jadi">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Rangka/Susunan</label>
-                <input type="text" class="form-control" name="rangka_susunan">
-            </div>
-        </div>
+    Swal.fire({
+    title: "Berhasil",
+    text: "Berhasil Edit Barang",
+    icon: "success"
+    });
+</script>
+      
+  @endif
 
-        <!-- Reproduksi -->
-        <div class="mb-3">
-            <label class="form-label">Reproduksi</label><br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="reproduksi[]" value="Cetak Offset">
-                <label class="form-check-label">Cetak Offset</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="reproduksi[]" value="Porporasi">
-                <label class="form-check-label">Porporasi</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="reproduksi[]" value="Cetak Perfor">
-                <label class="form-check-label">Cetak Perfor</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="reproduksi[]" value="Folio">
-                <label class="form-check-label">Folio</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="reproduksi[]" value="P52">
-                <label class="form-check-label">P 52</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="reproduksi[]" value="P58">
-                <label class="form-check-label">P 58</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="reproduksi[]" value="P72">
-                <label class="form-check-label">P 72</label>
-            </div>
-        </div>
+  @if (session()->has('msgdonehps'))
+  <script>
 
-        <!-- Lain-lain -->
-        <div class="mb-3">
-            <label class="form-label">Lainnya</label><br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="lainnya[]" value="Sablon">
-                <label class="form-check-label">Sablon</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="lainnya[]" value="Lem">
-                <label class="form-check-label">Lem (Atas/Samping)</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="lainnya[]" value="Cetak Ulang">
-                <label class="form-check-label">Cetak Ulang</label>
-            </div>
-        </div>
+    Swal.fire({
+    title: "Berhasil",
+    text: "Berhasil Dihapus ",
+    icon: "success"
+    });
+</script>
+      
+  @endif
 
-        <!-- Sistem Jilid -->
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label class="form-label">Sistem Jilid</label>
-                <input type="text" class="form-control" name="sistem_jilid">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Status Order</label>
-                <input type="text" class="form-control" name="status_order">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Plat</label>
-                <input type="text" class="form-control" name="plat">
-            </div>
-        </div>
+ 
+    @if (session()->has('gagal'))
+  <script>
 
-        <!-- Nomorator & Tinta -->
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label class="form-label">Nomorator Start</label>
-                <input type="text" class="form-control" name="nomorator_start">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Warna Tinta</label>
-                <input type="text" class="form-control" name="warna_tinta2">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Isi Perbuku</label>
-                <input type="text" class="form-control" name="isi_perbuku">
-            </div>
-        </div>
+    Swal.fire({
+    title: "Gagal",
+    text: "Kesalahan",
+    icon: "error"
+    });
+</script>
+      
+  @endif
 
-        <!-- Harga -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label class="form-label">Harga</label>
-                <input type="text" class="form-control" name="harga">
-            </div>
-        </div>
+  @if(session('msgerror'))
+    <div class="alert alert-danger">
+        {{ session('msgerror') }}
+    </div>
+@endif
 
-        <!-- Tombol -->
-        <div class="text-end">
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-    </form>
+
+<!--        
+
+    Table Kategori Barang
+-->
+<div class="d-flex">
+  <form action="/Admin/wo/Addwo" method="POST" class="mr-2">
+    @csrf
+    <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
+      <i class="fa fa-list" aria-hidden="true"></i> Tambah Work Order
+    </button>
+  </form>
+
 </div>
+
+
+
+ 
+ <br>
+<div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Data Barang</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+ <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Nama Barang</th>
+                                            <th>Kategori</th>
+                                            <th>Stok</th>
+                                            <th>Tools</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        {{-- @foreach ($databarang as $data)
+                                             <tr>
+                                                    <td>{{ $data['id'] }}</td>
+                                                    <td>{{ $data['nama_barang'] }}</td>
+                                                    
+                                                     <td>{{ $data->Kategoribr->Kategori }} <!-- Memanggil Join --></td>
+                                                     <td>{{ $data['stok_barang'] }}</td>
+
+                                                    <td>
+                                                      <div class="dropdown">
+                                                          <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                            Menus
+                                                          </button>
+                                                          <ul class="dropdown-menu">
+                                                            <form action="/Admin/Barang/ToolsEditBarang" method="POST">
+                                                              @csrf
+                                                              
+                                                              <input type="text" hidden name = "idbarang" value="{{ $data['id'] }}">
+
+                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
+
+                                                            <li><button class="dropdown-item" type="submit" name ="edit" value = "edit">Edit</button></li>
+                                                            <li><button class="dropdown-item" type="submit" name ="hapus" value ="hapus">Hapus</button></li>
+                                                             <li><button class="dropdown-item" type="submit" name ="sembunyi" value ="sembunyi">Sembunyikan</button></li>
+                                                          
+                                                            </form>
+                                                          </ul>
+                                                        </div>
+
+                                                                                     
+                                                    </td>
+                                            
+                                            </tr>
+                                        @endforeach --}}
+                                       
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>  
+                  </div>
+
 @endsection

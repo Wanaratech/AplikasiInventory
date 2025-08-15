@@ -106,6 +106,8 @@ Route::middleware(['auth'])->group(function(){
         route::controller(ControllerWO::class)->group(function(){
 
             route::get('/Admin/Sales/WorkOrder','Wodashboard')->name('workorder');
+            route::post('/Admin/wo/Addwo','Addwo');
+            route::post('/Admin/Wo/ProsesAddwo','ProsesAddWo');
             
         });
 
