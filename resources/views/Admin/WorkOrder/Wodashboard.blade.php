@@ -91,49 +91,25 @@
  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>id</th>
-                                            <th>Nama Barang</th>
-                                            <th>Kategori</th>
-                                            <th>Stok</th>
+                                           <th>Nama Pesanan</th>
+                                            <th>Tanggal Terima</th>
+                                           
+                                            <th>Status</th>
+                                            
                                             <th>Tools</th>
                                         </tr>
                                     </thead>
                                     
                                     <tbody>
-                                        {{-- @foreach ($databarang as $data)
-                                             <tr>
-                                                    <td>{{ $data['id'] }}</td>
-                                                    <td>{{ $data['nama_barang'] }}</td>
-                                                    
-                                                     <td>{{ $data->Kategoribr->Kategori }} <!-- Memanggil Join --></td>
-                                                     <td>{{ $data['stok_barang'] }}</td>
-
-                                                    <td>
-                                                      <div class="dropdown">
-                                                          <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                                            Menus
-                                                          </button>
-                                                          <ul class="dropdown-menu">
-                                                            <form action="/Admin/Barang/ToolsEditBarang" method="POST">
-                                                              @csrf
-                                                              
-                                                              <input type="text" hidden name = "idbarang" value="{{ $data['id'] }}">
-
-                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
-
-                                                            <li><button class="dropdown-item" type="submit" name ="edit" value = "edit">Edit</button></li>
-                                                            <li><button class="dropdown-item" type="submit" name ="hapus" value ="hapus">Hapus</button></li>
-                                                             <li><button class="dropdown-item" type="submit" name ="sembunyi" value ="sembunyi">Sembunyikan</button></li>
-                                                          
-                                                            </form>
-                                                          </ul>
-                                                        </div>
-
-                                                                                     
-                                                    </td>
-                                            
+                                       @foreach ($datawo as $data)
+                                            <tr>
+                                               <td>{{ $data->nama_pesanan }}</td>
+                                              <td>{{ $data->diterimaTanggal }}</td>
+                                              <td>{{ $data->status }}</td>
+                                              <td>tools</td>
+                                             
                                             </tr>
-                                        @endforeach --}}
+                                       @endforeach
                                        
                                         
                                     </tbody>

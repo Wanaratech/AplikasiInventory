@@ -13,7 +13,11 @@ class ControllerWO extends Controller
 
     public function Wodashboard(){
 
-            $reqdatawo  = ModelWO::all();
+            $reqdatawo  = [
+                
+                'datawo'=>ModelWO::all()
+
+            ];
 
         return view ('Admin.Workorder.Wodashboard',$reqdatawo);
     }   
