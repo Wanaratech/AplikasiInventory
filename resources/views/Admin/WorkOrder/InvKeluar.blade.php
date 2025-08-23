@@ -63,7 +63,7 @@
 @endif
 <div class="container mt-4">
 
-    <form action="/Admin/PO/TambahPO" method="POST">
+    <form action="/Admin/WO/TambahWO" method="POST">
        
         
         @csrf
@@ -113,6 +113,7 @@
                             @endforeach
                         </select>
                     </td>
+                    <input type="text" hidden name = "items[0][idwo]" value="{{ $datawo->id }}">
                     <td><input type="number" name="items[0][jumlah]" class="form-control" required></td>
                     <td><button type="button" class="btn btn-danger btn-sm remove-row">Hapus</button></td>
                 </tr>
@@ -167,6 +168,7 @@
                     ${dropdownOptions}
                 </select>
             </td>
+             <input type="text"  name = "items[0][idwo]" value="{{ $datawo->id }}">
             <td><input type="number" name="items[${rowIndex}][jumlah]" class="form-control" required></td>
             <td><button type="button" class="btn btn-danger btn-sm remove-row">Hapus</button></td>
         `;
