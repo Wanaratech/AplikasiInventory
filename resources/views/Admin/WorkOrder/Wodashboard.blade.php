@@ -84,6 +84,18 @@
   @endif
 
 
+     @if (session()->has('Gagalinputbsr'))
+  <script>
+
+    Swal.fire({
+    title: "Data Gagal Diinput",
+    text: "Tidak Boleh barang Keluar Lebih Besar Dari Stok",
+    icon: "error"
+    });
+</script>
+      
+  @endif
+
 
 
   @if(session('msgerror'))

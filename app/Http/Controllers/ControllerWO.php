@@ -183,9 +183,24 @@ class ControllerWO extends Controller
                         'qty'=>$item['jumlah']
                     ]);
 
-                    $inputketbInv->save();   
+
+                    $update = ModelBarang::find($item['barang']);
+
+                    $Stoksistem =  $update->stok_barang;
+              
+
+                    if ($item['jumlah'] > $Stoksistem) {
+                         return redirect()->route('workorder')->with('Gagalinputbsr',' ');
+                        break;
+                    }else{
+                         $stokupdate = $Stoksistem - $item['jumlah'];
+
+                         echo $stokupdate.'<br>';
+                    }
+                        //input dan sesuaikan stok di db
+                    // $inputketbInv->save();   
                }
-               return redirect()->route('workorder')->with('msgdone',' ');
+            //    return redirect()->route('workorder')->with('msgdone',' ');
             } catch (\Throwable $th) {
                   return redirect()->route('workorder')->with('error',' ');
             }
@@ -196,7 +211,7 @@ class ControllerWO extends Controller
 
             1 .ubah logika untuk tombol selesai, dimana tombol inventory Keluar akan tidak bisa diakses lagi jika sudah ada barang keluar (sudah)
             2. tambahkan barang barang yang keluar di detail Wo (sudah)
-            3. Kurangi barang yang keluar
+            3. Kurangi barang yang keluar dan jika barang di input lebih dari stok ada , akan ada warning
             4. cek barang yang keluar apakah stoknya ada atau tidak jika tidak maka akan tidak bisa di proses (sudah)
             5. Selesai apa bila nota sudah dibuat !
             6. Harga Akan Keluar Jika Sudah Selesai Nota.. ! Hapus Harga di tambah Wo
