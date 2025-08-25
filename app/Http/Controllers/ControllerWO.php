@@ -279,7 +279,7 @@ class ControllerWO extends Controller
         $dataWOfNota = [
 
                     'datawoget'=>ModelWO::where('id','=',$idwo)->first(),
-                    'datawo'=>ModelWO::where('Status','=','Open')->get(),
+                    'datawo'=>ModelWO::where('Status','=','Open')->first(),
                 ];
 
         if ($cekinv > 0 ) {
