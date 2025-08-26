@@ -280,6 +280,7 @@ class ControllerWO extends Controller
 
                     'datawoget'=>ModelWO::where('id','=',$idwo)->first(),
                     'datawo'=>ModelWO::where('Status','=','Open')->first(),
+                    'databarangKeluar'=>ModelInvKeluar::where('id_wo','=',$idwo)->with('databarangwo')->get()
                 ];
 
         if ($cekinv > 0 ) {

@@ -1,10 +1,10 @@
 @extends('Admin.template.main')
 
 @section('judul')
-        Dashboard Work Order
+        Data Nota
 @endsection
 @section('Judulisi')
-    <h2>Dashboard Work Order</h2>
+    <h2>Data Nota</h2>
 @endsection
 @section('Content1')
    

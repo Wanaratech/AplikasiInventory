@@ -1,10 +1,10 @@
 @extends('Admin.template.main')
 
 @section('judul')
-       Inventory Keluar
+       Tambah Nota
 @endsection
 @section('tittleCard')
-    <h2>Inventory Keluar</h2>
+    <h2>Tambah Nota</h2>
 @endsection
 @section('Content1')
 @if (session()->has('msgdone'))
@@ -111,15 +111,41 @@
 <div class="border rounded bg-light p-3">
     <pre class="mb-0">{{ $datawo->keterangan }}</pre>
 </div>
+<br>
+<h6 class="text-primary"><i class="bi bi-list-check me-2"></i> Invtory Digunakan</h6>
+<div class="border rounded bg-light p-3">
+ <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                           <th>Nama Barang</th>
+                                            <th>Qty Keluar</th>
+                                           
+                                            
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                       @foreach ($databarangKeluar as $data)
+                                            <tr>
+                                               <td>{{ $data->databarangwo->nama_barang }}</td>
+                                              <td>{{ $data->qty }}</td>
+                                             
+                                                                                    
+                                            </tr>
+                                       @endforeach
+                                       
+                                        
+                                    </tbody>
+                                </table>
+                                </div>
 
         </div>
     </div>
 </div>
 
-<br>
-<br>
-
-
+                 
+<br><br>
+<h2>Nota</h2>
 
         <table class="table table-bordered" id="tableInput">
 
