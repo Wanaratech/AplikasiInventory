@@ -56,6 +56,21 @@
       
   @endif
 
+
+  
+    @if (session()->has('gagalhps'))
+  <script>
+
+    Swal.fire({
+    title: "Gagal",
+    text: "Inventory Sudah Ada Transaksi",
+    icon: "error"
+    });
+</script>
+      
+  @endif
+
+
   @if(session('msgerror'))
     <div class="alert alert-danger">
         {{ session('msgerror') }}

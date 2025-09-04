@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
+use App\Models\ModelInvKeluar;
 use App\Models\ModelKategoriBarang;
 use App\Models\ModelStok;
 use Illuminate\Http\Request;
@@ -255,15 +256,24 @@ class ControllerBarangAdmin extends Controller
                //edit di sini
                return $this->EditbarangView($id);
             }elseif ($tools['hapus'] != NUll) {
-               # code...//LOGIKA tidak boleh di hapus DITAMBHKAN KETIKA SUDAH MENGERJAKAN TRANSAKSI
+               
+               $ceckinvkeluar = ModelInvKeluar::where('id_barang','=',$id)->count();
 
-               //hapus di Stok Dulu
+               if ($ceckinvkeluar > 0 ) {
+                   return redirect()->route('Barang')->with('gagalhps','');
+               }else{
+
+                   //hapus di Stok Dulu
                Modelstok::where('idbarang','=',$id)->delete();
                ModelAlurStok::where('idbarang','=',$id)->delete();
 
                //hapus barang
                ModelBarang::where('id','=',$id)->delete();
                return redirect()->route('Barang')->with('msgdonehps','');
+
+               }
+
+              
              
             }elseif ($tools['sembunyi'] !=Null) {
                # code...

@@ -377,6 +377,21 @@ class ControllerWO extends Controller
 
         return $this->updateworkroderHrS($dataupwo);
     }
+    
 
+
+     public function notaview(Request $reqidwo ){
+        $idwo = $reqidwo->idwo;
+        $data = [
+
+
+            'wo'=>ModelWO::where('id','=',$idwo)->first(),
+            'nota'=>ModelNota::where('nomorwo','=',$idwo)->first(),
+            'notadata'=>ModelNota::where('nomorwo','=',$idwo)->get(),
+        ];
+
+
+        return view('Admin.WorkOrder.DetailNota',$data);
+    }
        
 }

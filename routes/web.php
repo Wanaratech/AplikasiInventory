@@ -114,6 +114,8 @@ Route::middleware(['auth'])->group(function(){
             route::post('/Admin/Sales/NotaItems','NotaItems');
             route::post('/Admin/Sales/InputNota','inputnota');
             route::post('/Admin/WO/InvKeluar','InvKeluar');
+
+            route::post('/Admin/Sales/notaview','notaview');
             
         });
 

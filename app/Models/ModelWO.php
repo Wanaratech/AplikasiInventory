@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -47,9 +48,4 @@ class ModelWO extends Model
         return $this->hasmany(ModelNota::class,'id_wo');
 
     }
-
-
-
-
-
 }
