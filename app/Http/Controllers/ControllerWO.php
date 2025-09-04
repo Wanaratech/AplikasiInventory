@@ -307,10 +307,16 @@ class ControllerWO extends Controller
         $status = $dataupwo['status'];
         $updatedatawosthr = ModelWO::find($idwo);
 
-        $inputkedb =[
+        $updatedatawosthr ->fill([
+
+            'harga'=>$totalharga,
+            'status'=>$status
 
 
-        ];
+        ]);
+
+        $updatedatawosthr->save();
+         return redirect()->route('nota')->with('msgdone','');
 
         
 
@@ -327,6 +333,8 @@ class ControllerWO extends Controller
 
 
        return $this->inputnotatodb($datanota);
+
+      
 
 
     }
@@ -355,7 +363,7 @@ class ControllerWO extends Controller
 
 
             ]);
-              //$inputketbnota->save();
+              $inputketbnota->save();
 
             $totalharga+= $inputketbnota['total'];
         }

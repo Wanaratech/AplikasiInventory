@@ -13,7 +13,7 @@
 
     Swal.fire({
     title: "Berhasil",
-    text: "Berhasil Tambah Barang",
+    text: "Berhasil Tambah Nota",
     icon: "success"
     });
 </script>
@@ -107,6 +107,7 @@
  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                          
                                            <th>Nama Pesanan</th>
                                             <th>Tanggal Terima</th>
                                            
@@ -133,20 +134,8 @@
                                                               
                                                               <input type="text" hidden name = "idwo" value="{{ $data['id'] }}">
 
-                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
+                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail / Cetak</button></li>
 
-
-                                                              @if ($data->status == "Open")
-
-                                                                      <li><button class="dropdown-item" type="submit" name ="selesaikan" value = "edit">Inventory</button></li>
-                                                                  
-                                                              @endif
-
-                                                    
-                                                            
-                                                            <li><button class="dropdown-item" type="submit" name ="hapus" value = "hapus">Hapus</button></li>
-                                                           
-                                                          
                                                             </form>
                                                           </ul>
                                                         </div>
