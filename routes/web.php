@@ -7,6 +7,7 @@ use App\Http\Controllers\ControllerPreorder;
 use App\Http\Controllers\ControllerRekanan;
 use App\Http\Controllers\ControllerStokAdmin;
 use App\Http\Controllers\ControllerWO;
+use App\Http\Controllers\KasirController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -126,5 +127,19 @@ Route::middleware(['auth'])->group(function(){
 
 
 
+  
+    Route::middleware('userauth:Kasir')->group(function(){
+        Route::controller(KasirController::class)->group(function(){
+                Route::get('/Kasir/Home','HomeKasir')->name('DashboardKasir');
+
+        });
+
+    });
+
+
 });
+
+
+
+
 
