@@ -102,7 +102,7 @@ class ControllerWOKasir extends Controller
 
 
             $prosesaddtowo->save();
-            return redirect()->route('workorder')->with('msgdone','');
+            return redirect()->route('workorderKasir')->with('msgdone','');
     }
 
 
@@ -129,7 +129,7 @@ class ControllerWOKasir extends Controller
         }elseif ($toolswo['selesai']) {
 
             if ($cekbarang > 0) {
-                 return redirect()->route('workorder')->with('SudahadanInv','');
+                 return redirect()->route('workorderKasir')->with('SudahadanInv','');
             }else{
 
                   $getdata  = [ 
@@ -146,11 +146,11 @@ class ControllerWOKasir extends Controller
             
 
             if ($cekbarang > 0) {
-               return redirect()->route('workorder')->with('gagalhapus','');
+               return redirect()->route('workorderKasir')->with('gagalhapus','');
             }else{
 
                 ModelWO::where('id','=',$toolswo['idwo'])->delete();
-                return redirect()->route('workorder')->with('msgdonehps','');
+                return redirect()->route('workorderKasir')->with('msgdonehps','');
 
             }
         }
@@ -194,7 +194,7 @@ class ControllerWOKasir extends Controller
                                 cek apakah qty keluar apakah lebih besar dari stok yang ada di sistem ?
                         */
                     if ($item['jumlah'] > $Stoksistem) {
-                         return redirect()->route('workorder')->with('Gagalinputbsr',' ');
+                         return redirect()->route('workorderKasir')->with('Gagalinputbsr',' ');
                         break;
                     }else{
                          $stokupdate = $Stoksistem - $item['jumlah'];
@@ -223,9 +223,9 @@ class ControllerWOKasir extends Controller
                         
                      
                }
-              return redirect()->route('workorder')->with('msgdone',' ');
+              return redirect()->route('workorderKasir')->with('msgdone',' ');
             } catch (\Throwable $th) {
-                  return redirect()->route('workorder')->with('error',' ');
+                  return redirect()->route('workorderKasir')->with('error',' ');
             }
         }
         //note yang harus ditambah
@@ -289,7 +289,7 @@ class ControllerWOKasir extends Controller
              return view('Kasir.WorkOrder.Notaitem',$dataWOfNota);
     }
         else{
-             return redirect()->route('notaadd')->with('errorinv',' ');
+             return redirect()->route('notaaddKasir')->with('errorinv',' ');
         }
 
     }
@@ -316,7 +316,7 @@ class ControllerWOKasir extends Controller
         ]);
 
         $updatedatawosthr->save();
-         return redirect()->route('nota')->with('msgdone','');
+         return redirect()->route('notaKasir')->with('msgdone','');
 
         
 
