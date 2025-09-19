@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ControllerAdminPembelianBarang;
 use App\Http\Controllers\ControllerAuthUser;
 use App\Http\Controllers\ControllerBarangAdmin;
 use App\Http\Controllers\ControllerPreorder;
@@ -120,6 +121,12 @@ Route::middleware(['auth'])->group(function(){
 
             route::post('/Admin/Sales/notaview','notaview');
             
+        });
+
+
+        route::controller(ControllerAdminPembelianBarang::class)->group(function(){
+
+                route::get('/Admin/Pembelian','PembelianView')->name('Pembelian');
         });
 
 
