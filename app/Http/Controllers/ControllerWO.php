@@ -9,6 +9,7 @@ use App\Models\ModelInvKeluar;
 use App\Models\ModelNota;
 use App\Models\ModelPembayaranNota;
 use App\Models\ModelRekanan;
+use App\Models\ModelStok;
 use App\Models\ModelWO;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -200,7 +201,7 @@ class ControllerWO extends Controller
                     }else{
                          $stokupdate = $Stoksistem - $item['jumlah'];
 
-                         echo $stokupdate.'<br>';
+                       
                         //jalankan stok update barang
                          $update->stok_barang = $stokupdate;
 
@@ -216,6 +217,17 @@ class ControllerWO extends Controller
 
                          ]);
 
+                         $updatestoktbStok = ModelStok::where('idbarang','=',$item['barang'])->first();
+                         $pertanggal = date('y-m-d');
+                         $updatestoktbStok->fill([
+                            'idbarang'=>$item['barang'],
+                            'stok'=>$stokupdate,
+                            'pertanggal'=>$pertanggal
+
+                         ]);
+
+            
+                         $updatestoktbStok->save();
                          $update->save();
                          $inputtotbalurStok->save(); 
                            //input dan sesuaikan stok di db
