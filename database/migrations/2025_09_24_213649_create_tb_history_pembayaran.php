@@ -14,8 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tb_history_pembayaran', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->bigInteger('idNota');
+            $table->string('totalbayar');
+            $table->string('dibayarkan');
+            $table->string('sisa');
+            $table->timestamp('pertanggal');
+            
         });
     }
 

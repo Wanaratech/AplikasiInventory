@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
+use App\Models\ModelHistoryPembayaran;
 use App\Models\ModelInvKeluar;
 use App\Models\ModelNota;
 use App\Models\ModelPembayaranNota;
@@ -346,13 +347,8 @@ class ControllerWO extends Controller
         'deposit'=>$reqdatanota->deposit,
         'totalharga'=>$reqdatanota->total
        ];
-       
-
 
        return $this->inputnotatodb($datanota);
-
-      
-
 
     }
 
@@ -363,6 +359,7 @@ class ControllerWO extends Controller
         $items = $datanota['items'];
         $tanggal = date('d');
         $bulan  =date('m');
+        $dates = date('y-m-d');
         $nonota = $tanggal.$bulan.$idwo;
         $deposit  = (int) preg_replace('/[^0-9]/', '',$datanota['deposit']);
         $totalbayar  = (int) preg_replace('/[^0-9]/', '',$datanota['totalharga'])/100;
@@ -387,7 +384,7 @@ class ControllerWO extends Controller
         }
 
 
-        ///
+        /// Input Pembayaran NOta
 
         $inpembayaran = new ModelPembayaranNota();
 
@@ -398,6 +395,21 @@ class ControllerWO extends Controller
             'sisapembayaran'=>$sisa,
             'idwo'=>$idwo
         ]);
+
+
+        //
+
+        $inputHistory  = new ModelHistoryPembayaran();
+
+        $inputHistory ->fill([
+            'idNota'=>$nonota,
+            'totalbayar'=>$totalharga,
+            'dibayarkan'=>$deposit,
+            'sisa'=>$sisa,
+            'pertanggal'=>$dates
+        ]);
+
+        $inputHistory->Save();
         $inpembayaran->save();
 
         if ($sisa > 0) {
