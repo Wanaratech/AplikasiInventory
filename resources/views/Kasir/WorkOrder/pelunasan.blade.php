@@ -1,20 +1,14 @@
 @extends('Kasir.template.main')
 
 @section('judul')
-    Nota Bpk/Ibu 
+   Pelunasan Nota Bpk/Ibu 
 @endsection
 
 @section('Judulisi')
-    <h2>Nota Bpk/Ibu {{ $wo->nama_pesanan }}</h2>
+    <h2>Pelunasan Bpk/Ibu {{ $wo->nama_pesanan }}</h2>
 @endsection
 
 @section('Content1')
-<div class="container my-4">
-    <div class="d-flex justify-content-end mb-3 no-print">
-        <button class="btn btn-success btn-sm me-2" onclick="window.print()">
-            <i class="bi bi-printer"></i> Print
-        </button>
-    </div>
 
     <div class="card shadow rounded-3">
         <div class="card-body" id="nota-content">
@@ -82,12 +76,17 @@
                     </table>
 
                     {{-- Input Pelunasan --}}
-                    <form method="POST" action="/Admin/Sales/Pelunasan">
+                    <form method="POST" action="/Kasir/Sales/Pelunasan">
                         @csrf
                         <div class="mb-2">
                             <label for="bayar" class="form-label fw-bold">Jumlah Pelunasan</label>
+                            <input type="text" hidden name = "totalharganota" value="{{ $wo->harga }}">
+                            <input type="text" hidden name = "idnota" value="{{ $nota->nonota  }}">
+                              <input type="text" hidden name = "deposit" value="{{ $pembayaran->deposit  }}">
+                            <input type="text" hidden name = "sisabayar" value="{{ $pembayaran->sisapembayaran  }}" >
+
                             <input type="number" class="form-control form-control-sm text-end" 
-                                   id="bayar" name="bayar" placeholder="Masukkan jumlah (Rp)">
+                                   id="bayar" name="bayaransekarang" placeholder="Masukkan jumlah (Rp)">
                             <small id="warning" class="text-danger d-none">
                                 ❌ Jumlah pelunasan tidak boleh melebihi sisa pembayaran!
                             </small>
@@ -100,7 +99,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <style>
 @media print {

@@ -32,7 +32,7 @@ Route::middleware(['guest'])->group(function(){
 
         Route::post('/registerUser','Registeruser');
         Route::post('/logincek','proseslogin');
-        Route::get('/logout','logout');
+        // Route::get('/logout','logout');
     });
 
 
@@ -111,7 +111,7 @@ Route::middleware(['auth'])->group(function(){
             route::post('/Admin/WO/InvKeluar','InvKeluar');
             route::post('/Admin/Sales/notaview','notatools');
             route::post('/Admin/Sales/Pelunasan','pelunasan');
-            //pelunasan belum selesai
+      
             
         });
 
@@ -143,7 +143,7 @@ Route::middleware(['auth'])->group(function(){
     Route::middleware('userauth:Kasir')->group(function(){
         Route::controller(KasirController::class)->group(function(){
                 Route::get('/Kasir/Home','HomeKasir')->name('DashboardKasir');
-                Route::get('/logout','logout');
+                Route::get('/logoutksr','logoutkasir');
 
         });
 
@@ -172,6 +172,7 @@ Route::middleware(['auth'])->group(function(){
             route::post('/Kasir/WO/InvKeluar','InvKeluar');
 
             route::post('/Kasir/Sales/notaview','notatools');
+              route::post('/Kasir/Sales/Pelunasan','pelunasan');
             
         });
 

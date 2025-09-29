@@ -135,13 +135,16 @@
                                                               <input type="text" hidden name = "idwo" value="{{ $data['id'] }}">
 
                                                               @php
-                                                                  if ($data->status ="Piutang") {
+                                                                  if ($data->status =="Piutang") {
                                                                     # code...
                                                                     echo'  <li><button class="dropdown-item" type="submit" name ="pelunasan" value ="pelunasan">Lunasi</button></li>';
+                                                                  }else{
+
                                                                   }
                                                               @endphp
 
                                                               <li><button class="dropdown-item" type="submit" name ="detail" value="detail">Detail / Cetak</button></li>
+                                                              <li><button class="dropdown-item" type="submit" name ="detail" value="detail">History Transaksi</button></li>
 
                                                             </form>
                                                           </ul>

@@ -12,6 +12,7 @@ use App\Models\ModelPembayaranNota;
 use App\Models\ModelRekanan;
 use App\Models\ModelStok;
 use App\Models\ModelWO;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -315,6 +316,7 @@ class ControllerWO extends Controller
     //oreder selesai ketika sudah ada nota
     
     //harga keluar jika sudah ada nota
+    // FUNCSI INI ADALAH FUNGSI YANGDIGUNAKAN UNTUK MELAKUKAN UPDATE TERHADAP WORK ORDER, DIMANA YANG DIUPDATE ADALAH STATUS DAN HARGA
 
     private function updateworkroderHrS($dataupwo){
 
@@ -412,6 +414,10 @@ class ControllerWO extends Controller
         $inputHistory->Save();
         $inpembayaran->save();
 
+
+        //update status dan total harga  di WORK ORDER jika sisa lebih dari 0 maka akan termasuk piutang
+        //LOGIKA INI DIGUNAKAN UNTUK MEMUNCULKAN TOTAL HARGA PADA WO DAN STATUSNYA
+
         if ($sisa > 0) {
            $dataupwo =[
 
@@ -460,6 +466,93 @@ class ControllerWO extends Controller
         }
         
        
+    }
+
+
+    public function pelunasan( Request $reqdatapelunasan){
+
+    $datapelunasan = [
+       'idnota' => $reqdatapelunasan->idnota,
+       'deposit' => $reqdatapelunasan->deposit,
+       'sisabayar' => $reqdatapelunasan->sisabayar,
+       'bayaransekarang' => $reqdatapelunasan->bayaransekarang,
+       'totalharganota'=>$reqdatapelunasan->totalharganota
+
+    ];
+
+    return $this->ProsesPelunasan($datapelunasan);
+       
+
+    }
+
+    private function ProsesPelunasan($datapelunasan){
+        $updateedDeposit = $datapelunasan['deposit'] + $datapelunasan['bayaransekarang'];
+        $updatesisapembayaran = $datapelunasan['sisabayar']-$datapelunasan['bayaransekarang'];
+         $dates = date('y-m-d');
+
+      
+
+  try {
+              //update nota
+             $updatedataNota  = ModelPembayaranNota::find($datapelunasan['idnota']);
+             $updatedataNota->fill([
+            'deposit'=>$updateedDeposit,
+            'sisapembayaran'=>$updatesisapembayaran,
+            
+            
+        ]);
+        //input ke history bayar
+
+        $inputtotbHistory  = new ModelHistoryPembayaran();
+
+        $inputtotbHistory->fill([
+            'idNota'=>$datapelunasan['idnota'],
+            'totalbayar'=>$datapelunasan['totalharganota'],
+            'dibayarkan'=>$datapelunasan['bayaransekarang'],
+            'sisa'=>$updatesisapembayaran,
+            'pertanggal'=>$dates
+
+        ]);
+
+        //get id wo from data pembayaran Nota UNTUK UPDATE STATUS DI WO, TIDAK PERLU UPDATE HARGA KARENA HARGA KAN SUDAH KETEMU
+
+        $getidwo = ModelPembayaranNota::where('id','=',$datapelunasan['idnota'])->first();
+        $idwo = $getidwo['idwo'];
+        $updatedatawosthr = ModelWO::find($idwo);
+
+
+        //cek apakah sisa masih lebih besar dari uang yang dibayarakan ?
+
+        if ($datapelunasan['sisabayar'] > $datapelunasan['bayaransekarang']) {
+            $updatedatawosthr ->fill([
+            'status'=>'Piutang'
+        ]);
+
+        }else{
+            $updatedatawosthr ->fill([
+            'status'=>'Selesai'
+        ]);
+
+        }
+
+        
+        $updatedatawosthr->save();
+         $updatedataNota->save();
+        $inputtotbHistory->save();
+         return redirect()->route('nota')->with('msgdone','');
+
+
+
+  } catch (\Throwable $th) {
+    //throw $th;
+     return redirect()->route('nota')->with('msgerror','');
+
+  }
+            
+       
+
+        
+
     }
        
 }
