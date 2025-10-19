@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Model_chartAkun extends Model
+{
+    use HasFactory;
+
+     protected $table = 'tb_chart_akun';
+    protected $fillable = [
+        'tipe_id',
+        'kode',
+        'nama',
+        'keterangan',
+        'saldo_awal',
+        'tanggal_saldo_awal'
+    ];
+
+      public function tipeakun(){
+        return $this->belongsTo(Model_tipeakun::class,'tipe_id');
+    }
+}
