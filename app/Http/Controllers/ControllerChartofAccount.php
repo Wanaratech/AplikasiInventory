@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Model_chartAkun;
+use App\Models\Model_tipeakun;
 use Illuminate\Http\Request;
 
 class ControllerChartofAccount extends Controller
@@ -13,11 +14,21 @@ class ControllerChartofAccount extends Controller
 
         $selectdata = [
 
-            'dataCOA'=>Model_chartAkun::all(),
+            'dataCOA'=>Model_chartAkun::with('tipeakun')->get(),
         ];
 
 
-        return view('Admin.ChartOfAccount.CoADashboard');
+        return view('Admin.ChartOfAccount.CoADashboard',$selectdata);
+    }
+
+    public function COAaddView(){
+
+        $datatipeakun = [
+
+            'tipeakun' => Model_tipeakun::all(),
+        ];
+
+        return view('Admin.ChartOfAccount.CoaViewadd',$datatipeakun);
     }
 
 

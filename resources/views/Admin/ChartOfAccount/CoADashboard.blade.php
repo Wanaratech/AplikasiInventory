@@ -83,19 +83,19 @@
     Table Kategori Barang
 -->
 <div class="d-flex">
-  <form action="/Admin/Barang/TambahBarang" method="POST" class="mr-2">
+  <form action="/Admin/coa/TambahCOA" method="POST" class="mr-2">
     @csrf
     <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
-      <i class="fa fa-folder-open" aria-hidden="true"></i> Tambah Barang
+      <i class="fa fa-folder-open" aria-hidden="true"></i> Tambah Akun
     </button>
   </form>
 
-  <form action="/Admin/Barang/CekStokBarang" method="POST">
+  {{-- <form action="/Admin/Barang/CekStokBarang" method="POST">
     @csrf
     <button type="submit" name="cekstok" value="cekstok" class="btn btn-info">
       <i class="fa fa-info-circle" aria-hidden="true"></i> Cek Stok Rendah
     </button>
-  </form>
+  </form> --}}
 </div>
 
 
@@ -113,20 +113,22 @@
                                         <tr>
                                             <th>Kode</th>
                                             <th>Nama Akun</th>
-                                            <th>Kode</th>
-                                            <th>Stok</th>
-                                            <th>Tools</th>
+                                            <th>Jenis Akun</th>
+                                            <th>Saldo</th>
+                                            <th>Keterangan Akun</th>
                                         </tr>
                                     </thead>
                                     
                                     <tbody>
-                                        @foreach ($databarang as $data)
+                                        @foreach ($dataCOA as $data)
                                              <tr>
-                                                    <td>{{ $data['id'] }}</td>
-                                                    <td>{{ $data['nama_barang'] }}</td>
+                                                    <td>{{ $data['kode'] }}</td>
+                                                    <td>{{ $data['nama'] }}</td>
                                                     
-                                                     <td>{{ $data->Kategoribr->Kategori }} <!-- Memanggil Join --></td>
-                                                     <td>{{ $data['stok_barang'] }}</td>
+                                                     <td>{{ $data->tipeakun->nama_code }} <!-- Memanggil Join --></td>
+                                                     <td>{{ $data['saldo'] }}</td>
+                                                     <td>{{ $data['keterangan'] }}</td>
+
 
                                                     <td>
                                                       <div class="dropdown">

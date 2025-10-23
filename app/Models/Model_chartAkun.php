@@ -16,7 +16,8 @@ class Model_chartAkun extends Model
         'nama',
         'keterangan',
         'saldo_awal',
-        'tanggal_saldo_awal'
+        'tanggal_saldo_awal',
+        'saldo'
     ];
 
       public function tipeakun(){
