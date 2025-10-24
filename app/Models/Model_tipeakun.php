@@ -12,6 +12,10 @@ class Model_tipeakun extends Model
 
      protected $table = 'tb_tipeakun';
     protected $fillable = ['code', 'nama_code', 'category', 'normal_balance'];
+    
+    public $timestamps = true;
+
+    public $incrementing = true;
 
       public function kodeakun(){
         return $this->hasmany(Model_chartAkun::class,'tipe_id');

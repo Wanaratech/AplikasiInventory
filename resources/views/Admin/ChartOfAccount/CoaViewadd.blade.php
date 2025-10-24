@@ -28,7 +28,7 @@
   <div class="mb-3">
 
     @php
-        $randomnumber = rand(1,999999);
+        $randomnumber = rand(1,1000);
     @endphp
     <label for="exampleInputEmail1" class="form-label">Id</label>
     <input type="number" required  class="form-control" id="exampleInputEmail1"  name = "id" value = {{ $randomnumber }} aria-describedby="emailHelp">

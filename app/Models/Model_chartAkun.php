@@ -19,6 +19,10 @@ class Model_chartAkun extends Model
         'tanggal_saldo_awal',
         'saldo'
     ];
+    
+    public $timestamps = true;
+
+    public $incrementing = true;
 
       public function tipeakun(){
         return $this->belongsTo(Model_tipeakun::class,'tipe_id');
