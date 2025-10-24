@@ -21,6 +21,11 @@ return new class extends Migration
             $table->unsignedBigInteger('idnota');
 
             $table->timestamps();
+
+             $table->foreign('id_akun')
+                ->references('id')->on('tb_chart_akun')// refrensi diambil dari id yang ada pada tb COA
+                ->onUpdate('cascade') // Jika nama COA diubah, foreign key tetap valid
+                ->onDelete('restrict');// jika ada barang maka tidak bisa dihapus;
         });
     }
 
