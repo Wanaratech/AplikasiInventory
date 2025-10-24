@@ -21,7 +21,7 @@
 
 
 
-   <form method="POST" action="/Admin/Barang/AddBarang">
+   <form method="POST" action="/Admin/COA/CoaAdd">
     @csrf
 
  
@@ -71,7 +71,7 @@
 
 
 
-  <button type="submit" name="submit" value = "input" class="btn btn-primary">Tambah Barang</button>
+  <button type="submit" name="submit" value = "input" class="btn btn-primary">Tambah COA</button>
 
 </form>
 
