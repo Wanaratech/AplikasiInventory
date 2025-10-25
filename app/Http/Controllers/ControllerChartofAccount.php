@@ -35,10 +35,21 @@ class ControllerChartofAccount extends Controller
     public function CoaAdd(Request $reqdatacoa ){
 
         $datacoa = [
-                
+                'id'=>$reqdatacoa->id,
+                'tipe'=>$reqdatacoa->tipe,
+                'nama_akun'=>$reqdatacoa->nama_akun,
+                'saldoawal'=>$reqdatacoa->saldoawal,
+                'tgl'=>$reqdatacoa->tgl
+
 
         ];
+        return $this->PushCOaTodb($datacoa);
 
+    }
+
+    private function PushCOaTodb($datacoa){
+
+        
     }
 
 

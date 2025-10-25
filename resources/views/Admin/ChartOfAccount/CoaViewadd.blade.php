@@ -1,10 +1,10 @@
 @extends('Admin.template.main')
 
 @section('judul')
-        Tambah barang
+        Tambah Akun 
 @endsection
 @section('tittleCard')
-    <h2>Tambah Barang</h2>
+    <h2>Tambah Akun </h2>
 @endsection
 @section('Content1')
 
@@ -36,8 +36,8 @@
 
     <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Tipe Akun</label>
-   <select id="Dropdown-data" name="kategori" class="form-control">
-    <option value="">Pilih Kategori...</option>
+   <select id="Dropdown-data" name="tipe" class="form-control">
+    <option value="">Pilih tipe...</option>
     @foreach($tipeakun as $tipe)
         <option value="{{ $tipe->id }}">[{{ $tipe->code }}] {{ $tipe->nama_code }}</option>
     @endforeach
@@ -48,21 +48,21 @@
 
      <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Nama Akun</label>
-    <input type="number" required   class="form-control" id="exampleInputEmail1" name = "qty" aria-describedby="emailHelp">
+    <input type="text" required autocomplete="false"   class="form-control" id="exampleInputEmail1" name = "nama_akun" aria-describedby="emailHelp">
     
   </div>
 
   
      <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Saldo Awal</label>
-    <input type="number" required   class="form-control" id="exampleInputEmail1" name = "hargabeli" aria-describedby="emailHelp">
+    <label for="exampleI nputEmail1" class="form-label">Saldo Awal</label>
+    <input type="number" value = "0" required autocomplete="false"  class="form-control" id="exampleInputEmail1" name = "saldoawal" aria-describedby="emailHelp">
     
   </div>
 
   
      <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Tanggal Saldo Awal</label>
-    <input type="date" required   class="form-control" id="exampleInputEmail1" name = "hargajual" aria-describedby="emailHelp">
+    <input type="date" required  autocomplete="false" class="form-control" id="exampleInputEmail1" name = "tgl" aria-describedby="emailHelp">
     
   </div>
 
