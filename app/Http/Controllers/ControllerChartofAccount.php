@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Model_chartAkun;
 use App\Models\Model_tipeakun;
+use App\Models\MOdelJurnal;
 use Illuminate\Http\Request;
 
 class ControllerChartofAccount extends Controller
@@ -53,7 +54,7 @@ class ControllerChartofAccount extends Controller
         $inputtodb  = New Model_chartAkun();
         $selectdatatipeAkun = Model_tipeakun::where('id','=',$datacoa['tipe'])->first();
         $keteranganPosisi = $selectdatatipeAkun['category'];
-
+        $inputtojurnal  = new MOdelJurnal();
         try {
             //code...
                  $inputtodb->fill([
@@ -69,6 +70,13 @@ class ControllerChartofAccount extends Controller
             
 
         ]);
+
+        // $intputotbjurnal  ->fill([
+        //     'id_akun'=>
+
+        // ])
+
+        
 
 
         $inputtodb->save();

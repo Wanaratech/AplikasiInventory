@@ -28,4 +28,9 @@ class Model_chartAkun extends Model
       public function tipeakun(){
         return $this->belongsTo(Model_tipeakun::class,'id_tipeakun');
     }
+
+      public function jurnaltoakun(){
+        return $this->hasmany(MOdelJurnal::class,'id_akun');
+
+    }
 }
