@@ -36,6 +36,7 @@ class ChartOfAccountsSeeder extends Seeder
     ['category' => 'Equity', 'code' => 3091, 'nama_code' => 'Modal Pemilik', 'normal_balance' => 'Credit'],
     ['category' => 'Equity', 'code' => 3092, 'nama_code' => 'Laba Ditahan', 'normal_balance' => 'Credit'],
     ['category' => 'Equity', 'code' => 3093, 'nama_code' => 'Prive Pemilik', 'normal_balance' => 'Debit'],
+    ['category' => 'Equity', 'code' => 3094, 'nama_code' => 'Saldo Awal', 'normal_balance' => 'Credit'],
 
     ['category' => 'Income', 'code' => 4007, 'nama_code' => 'Pendapatan Usaha', 'normal_balance' => 'Credit'],
     ['category' => 'Income', 'code' => 4008, 'nama_code' => 'Pendapatan Lainnya', 'normal_balance' => 'Credit'],

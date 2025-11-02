@@ -40,7 +40,7 @@
    <select id="Dropdown-data" name="tipe" class="form-control">
     <option value="">Pilih tipe...</option>
     @foreach($tipeakun as $tipe)
-        <option value="{{ $tipe->id }}">[{{ $tipe->code }}] {{ $tipe->nama_code }}</option>
+        <option value="{{ $tipe->id }}">[{{ $tipe->code }}] {{ $tipe->nama_code }} - {{ $tipe->category }}</option>
     @endforeach
 </select>
 

@@ -87,7 +87,7 @@ class ControllerChartofAccount extends Controller
         
         $randomNota = rand(500,100000);
         if ($datacoa['saldoawal'] > 0) {
-             $cekidModal = Model_chartAkun::where('nama','=','Modal')->first();
+             $cekidModal = Model_chartAkun::where('nama','=','Saldo Awal')->first();
              $idmodal = $cekidModal['id'];
                $inputtodb->save(); //input COa ke db dengan jurnal
             # code...
