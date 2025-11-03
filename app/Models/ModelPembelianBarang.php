@@ -17,4 +17,14 @@ class ModelPembelianBarang extends Model
     public $incrementing = false;
 
 
+    public function R_Barang(){
+        return $this->belongsTo(ModelBarang::class,'id_barang');
+    }
+
+    
+      public function NotaPemelian(){
+        return $this->hasmany(ModelNotaPembelianBarang::class,'id_pembelian');
+
+    }
+
 }
