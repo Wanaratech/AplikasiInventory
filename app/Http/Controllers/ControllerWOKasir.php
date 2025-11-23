@@ -325,6 +325,8 @@ class ControllerWOKasir extends Controller
         
 
     }
+
+    
 ///// input ke nota/////
     public function inputnota(Request $reqdatanota){
 

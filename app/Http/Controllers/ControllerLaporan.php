@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\MOdelJurnal;
 use Illuminate\Http\Request;
 
 class ControllerLaporan extends Controller
@@ -72,7 +73,15 @@ class ControllerLaporan extends Controller
     //fungsi memanggil Jurnal
     Private Function PanggilJurnal($tanggal){
 
-        echo " Memanggil Jurnal Pada Tanggal".$tanggal['tanggalAwal']."Sampai".$tanggal['tanggalAkhir'];
+        //
+        $tanggalAwal = $tanggal['tanggalAwal'];
+        $tanggalAkhir =$tanggal['tanggalAkhir'];
+        $data = ['Jurnal'=> MOdelJurnal::whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])->with('idakun')
+            ->orderBy('idnota')
+            ->orderBy('id_akun')
+            ->get()
+            ->groupBy('idnota')];
+        return view('Admin.Laporan.Jurnal',$data);
     }
 
 
