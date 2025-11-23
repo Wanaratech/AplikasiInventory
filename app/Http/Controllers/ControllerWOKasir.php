@@ -326,7 +326,7 @@ class ControllerWOKasir extends Controller
 
     }
 
-    
+
 ///// input ke nota/////
     public function inputnota(Request $reqdatanota){
 
@@ -417,6 +417,8 @@ class ControllerWOKasir extends Controller
             'totalharga' => $totalharga,
             'status'=>'Piutang'
         ];
+            //akutansi piutang dan kas
+
          return $this->updateworkroderHrS($dataupwo);
         }else{
             $dataupwo =[
@@ -425,6 +427,8 @@ class ControllerWOKasir extends Controller
             'totalharga' => $totalharga,
             'status'=>'Selesai'
         ];
+
+        //akutansi kas dan
          return $this->updateworkroderHrS($dataupwo);
 
         }
