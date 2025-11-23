@@ -9,6 +9,19 @@
 @endsection
 
 @section('Content1')
+
+  @if (session()->has('MsgTglError'))
+  <script>
+
+    Swal.fire({
+    title: "Error",
+    text: "Tanggal Tidak Valid",
+    icon: "warning"
+    });
+</script>
+
+@endif
+
 <div class="container-fluid">
     <div class="row justify-content-center">
         <!-- Card Jurnal -->

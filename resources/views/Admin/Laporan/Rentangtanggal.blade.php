@@ -11,18 +11,20 @@
 @section('Content1')
 <div class="container-fluid d-flex justify-content-center">
     <div class="card shadow p-4" style="width: 450px; border-radius: 15px;">
-        <form action="{{ url('laporan/proses') }}" method="GET">
+        <form action="{{ url('Admin/laporan/proses') }}" method="POST">
+            @csrf
             <div class="mb-3">
                 <label class="form-label font-weight-bold">Dari Tanggal</label>
-                <input type="date" name="dari" class="form-control" required>
+                <input type="date" name="tglawal" class="form-control" required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label font-weight-bold">Sampai Tanggal</label>
-                <input type="date" name="sampai" class="form-control" required>
+                <input type="date" name="tglakhir" class="form-control" required>
             </div>
 
             <input type="text" hidden name="jenis" value="{{ $selected }}"> 
+            
             <button type="submit" class="btn btn-primary w-100 mt-3">Lihat Laporan</button>
         </form>
     </div>
