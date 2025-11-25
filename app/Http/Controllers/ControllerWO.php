@@ -424,6 +424,10 @@ class ControllerWO extends Controller
             'totalharga' => $totalharga,
             'status'=>'Piutang'
         ];
+
+        // Jurnal Piutang
+
+        
          return $this->updateworkroderHrS($dataupwo);
         }else{
             $dataupwo =[
