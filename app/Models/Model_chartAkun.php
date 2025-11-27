@@ -34,6 +34,8 @@ class Model_chartAkun extends Model
 
     }
 
+
+
     public function metodebayar(){
         return $this->hasmany(MOdelMetodeBayar::class,'idcoa');
 
