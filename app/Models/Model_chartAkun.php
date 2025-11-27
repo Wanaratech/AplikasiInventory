@@ -33,4 +33,9 @@ class Model_chartAkun extends Model
         return $this->hasmany(MOdelJurnal::class,'id_akun');
 
     }
+
+    public function metodebayar(){
+        return $this->hasmany(MOdelMetodeBayar::class,'idcoa');
+
+    }
 }
