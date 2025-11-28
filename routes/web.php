@@ -6,6 +6,7 @@ use App\Http\Controllers\ControllerAuthUser;
 use App\Http\Controllers\ControllerBarangAdmin;
 use App\Http\Controllers\ControllerChartofAccount;
 use App\Http\Controllers\ControllerLaporan;
+use App\Http\Controllers\ControllerPayment;
 use App\Http\Controllers\ControllerPreorder;
 use App\Http\Controllers\ControllerRekanan;
 use App\Http\Controllers\ControllerStokAdmin;
@@ -138,6 +139,12 @@ Route::middleware(['auth'])->group(function(){
             route::get('Admin/laporan/neraca','Neracaselected');
             route::post('Admin/laporan/proses','ProsesLaporan');
 
+        });
+
+
+        route::controller(ControllerPayment::class)->group(function(){
+            route::get('/Admin/metodepembayaran','Homepayment')->name('payment');
+            route::post('/Admin/Payment/TambahPayment','Paymentaddform');
         });
          
     });
