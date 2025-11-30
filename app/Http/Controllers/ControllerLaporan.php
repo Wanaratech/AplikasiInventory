@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\MOdelJurnal;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ControllerLaporan extends Controller
@@ -46,8 +47,11 @@ class ControllerLaporan extends Controller
 
 
        //mengambil tanggal 
-       $tanggal  = ['tanggalAwal'=>$reqdatalaporan->tglawal,
-                    'tanggalAkhir'=>$reqdatalaporan->tglakhir];
+         $tanggalAwal  = Carbon::parse(trim($reqdatalaporan->tglawal))->startOfDay();
+        $tanggalAkhir = Carbon::parse(trim($reqdatalaporan->tglakhir))->endOfDay();
+
+       $tanggal  = [  'tanggalAwal'  => $tanggalAwal,
+                        'tanggalAkhir' => $tanggalAkhir];
         
                     //logika tanggal 
         

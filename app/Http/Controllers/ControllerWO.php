@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Model_chartAkun;
 use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
 use App\Models\ModelHistoryPembayaran;
@@ -348,7 +349,8 @@ class ControllerWO extends Controller
         'idwo'=>$reqdatanota->idwo,
         'items'=>$reqdatanota->items,
         'deposit'=>$reqdatanota->deposit,
-        'totalharga'=>$reqdatanota->total
+        'totalharga'=>$reqdatanota->total,
+        'metodebayar'=>$reqdatanota->metodebayar
        ];
 
        return $this->inputnotatodb($datanota);
@@ -359,6 +361,7 @@ class ControllerWO extends Controller
     private function inputnotatodb($datanota){
 
         $idwo = $datanota['idwo'];
+        $metodepembayaran = $datanota['metodebayar'];
         $items = $datanota['items'];
         $tanggal = date('d');
         $bulan  =date('m');
@@ -390,6 +393,7 @@ class ControllerWO extends Controller
         /// Input Pembayaran NOta
 
         $inpembayaran = new ModelPembayaranNota();
+        
 
         $inpembayaran->fill([
             'id'=>$nonota,
@@ -409,7 +413,8 @@ class ControllerWO extends Controller
             'totalbayar'=>$totalharga,
             'dibayarkan'=>$deposit,
             'sisa'=>$sisa,
-            'pertanggal'=>$dates
+            'pertanggal'=>$dates,
+            'id_paymentmethod'=>$metodepembayaran
         ]);
 
         $inputHistory->Save();
@@ -428,6 +433,8 @@ class ControllerWO extends Controller
         ];
 
         // Jurnal Piutang
+        
+        
 
         
          return $this->updateworkroderHrS($dataupwo);
@@ -436,8 +443,24 @@ class ControllerWO extends Controller
 
             'idwo'=>$idwo,
             'totalharga' => $totalharga,
-            'status'=>'Selesai'
+            'status'=>'Selesai' 
         ];
+
+          //jurnal selesai, ini untuk jurnal jika dibaayr cash dan tidak ada piutang usaha
+        $cekidpenjualan = Model_chartAkun::where('nama','=','Penjualan')->first();
+        $cekidcoaMetodebayar  =MOdelMetodeBayar::where('id','=',$metodepembayaran)->first();
+        $idakunpenjualan = $cekidpenjualan['id'];
+        $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
+
+        ControllerJurnal::catatanjurnal($idakunPembayaran,$totalharga,0,$idwo);
+        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$idwo);
+
+        //update Saldo COA
+            $updatecoaAsset = Model_chartAkun::find($idakunPembayaran);
+            $updatecoaPenjualan = Model_chartAkun::find($idakunpenjualan);
+
+               //selesaikan esok  (todo list buat update coa, tapi pertama harus car iidulu berapa isi saldo coanya)
+      
          return $this->updateworkroderHrS($dataupwo);
 
         }

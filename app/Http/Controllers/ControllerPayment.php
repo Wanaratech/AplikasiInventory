@@ -25,7 +25,11 @@ class ControllerPayment extends Controller
     public function Paymentaddform(){
 
         $getdatacoa = [
-            'datacoa'=>Model_chartAkun::where('keterangan','=','Kas dan Bank')->get()
+              'datacoa' => Model_chartAkun::with('tipeakun')
+                    ->whereHas('tipeakun', function($q){
+                        $q->where('nama_code', 'Kas dan Bank');
+                    })
+                    ->get()
         ];
         return view('Admin.Payment.PaymentForm',$getdatacoa);
     }

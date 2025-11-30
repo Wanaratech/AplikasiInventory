@@ -54,7 +54,7 @@ class ControllerChartofAccount extends Controller
 
         $inputtodb  = New Model_chartAkun();
         $selectdatatipeAkun = Model_tipeakun::where('id','=',$datacoa['tipe'])->first();
-        $keteranganPosisi = $selectdatatipeAkun['nama_code']; //nama tipe akun
+        $keteranganPosisi = $selectdatatipeAkun['category']; //mengambil kategori akun
         $balanceakunNormal  = $selectdatatipeAkun['normal_balance'];
         
         /*
@@ -135,8 +135,7 @@ class ControllerChartofAccount extends Controller
                 
         }else{
             $inputtodb->save();//input COa ke db tanpa jurnal
-             return redirect()->route('COAHome')->with('msgdone','');
-
+            return redirect()->route('COAHome')->with('msgdone','');
         }
         } catch (\Throwable $th) {
             //throw $th;

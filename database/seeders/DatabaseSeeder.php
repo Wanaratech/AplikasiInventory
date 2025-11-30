@@ -298,6 +298,19 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => '2025-11-04 12:05:48',
                 'saldo' => '0',
             ],
+
+             [
+                'id' => 765,
+                'id_tipeakun' => 16,
+                'kode' => '2814',
+                'nama' => 'Penjualan',
+                'keterangan' => 'Income',
+                'saldo_awal' => 0.00,
+                'tanggal_saldo_awal' => '2025-11-04',
+                'created_at' => '2025-11-04 12:05:48',
+                'updated_at' => '2025-11-04 12:05:48',
+                'saldo' => '0',
+            ],
         ]);
     }
 }

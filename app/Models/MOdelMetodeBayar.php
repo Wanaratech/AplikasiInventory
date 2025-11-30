@@ -21,4 +21,10 @@ class MOdelMetodeBayar extends Model
         return $this->belongsTo(Model_chartAkun::class,'idcoa');
     }
 
+    public function historybayar(){
+      
+        return $this->hasMany(ModelHistoryPembayaran::class,'id_paymentmethod');
+    }
+
+
 }

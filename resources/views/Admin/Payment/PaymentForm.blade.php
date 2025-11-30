@@ -52,7 +52,7 @@
 
 
 
-  <button type="submit" name="submit" value = "input" class="btn btn-primary">Tambah Barang</button>
+  <button type="submit" name="submit" value = "input" class="btn btn-primary">Tambah Payment</button>
 
 </form>
 
