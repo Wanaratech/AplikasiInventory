@@ -433,6 +433,19 @@ class ControllerWO extends Controller
         ];
 
         // Jurnal Piutang
+          $cekidpenjualan = Model_chartAkun::where('nama','=','Penjualan')->first();
+           $cekidpiutang = Model_chartAkun::where('nama','=','Piutang Rekanan')->first();
+        $cekidcoaMetodebayar  =MOdelMetodeBayar::where('id','=',$metodepembayaran)->first();
+        $idakunpenjualan = $cekidpenjualan['id'];
+        $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
+        $idpiutang = $cekidpiutang['id'];
+
+        ControllerJurnal::catatanjurnal($idakunPembayaran,$deposit,0,$idwo);
+        ControllerJurnal::catatanjurnal($idpiutang,$deposit,0,$idwo);
+        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$idwo);
+
+        //update coa besok copas dibawah
+
         
         
 
