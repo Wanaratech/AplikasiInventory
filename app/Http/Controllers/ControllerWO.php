@@ -194,8 +194,9 @@ class ControllerWO extends Controller
 
 
                     $update = ModelBarang::find($item['barang']);
-                    $hppbarang = $update['Hargabeli'];
-                    $totalHargaBeli =+ $hppbarang;
+                    $hppbarang = $update['HargaBeli'];
+                    $totalHargaBeli += $hppbarang*$item['jumlah'];
+
 
                     $Stoksistem =  $update->stok_barang;
               
@@ -245,12 +246,12 @@ class ControllerWO extends Controller
                }
                //akutansi HPP terhadap Persediaan (barang keluar)
             
-               $idHPP = Model_chartAkun::where('nama','=','Harga Pokok Penjualan')->get();
-               $idPersediaan = Model_chartAkun::where('nama','=','Persediaan')->get();
+               $idHPP = Model_chartAkun::where('nama','=','Harga Pokok Penjualan')->first();
+               $idPersediaan = Model_chartAkun::where('nama','=','Persediaan Asset')->first();
 
 
                 ControllerJurnal::catatanjurnal($idHPP['id'],$totalHargaBeli,0,$idwo);
-                ControllerJurnal::catatanjurnal( $idPersediaan['id'],0,$$totalHargaBeli,$idwo);
+                ControllerJurnal::catatanjurnal( $idPersediaan['id'],0,$totalHargaBeli,$idwo);
                 //end Akutansi 
 
             //update coa 
