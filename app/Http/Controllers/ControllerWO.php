@@ -181,6 +181,7 @@ class ControllerWO extends Controller
 
             $items = $datainv['item'];
             $idwo = $datainv['idwo'];
+            $totalHargaBeli = 0 ;
             try {
                foreach ($items as $item) {
                  $inputketbInv = new ModelInvKeluar();
@@ -193,6 +194,8 @@ class ControllerWO extends Controller
 
 
                     $update = ModelBarang::find($item['barang']);
+                    $hppbarang = $update['Hargabeli'];
+                    $totalHargaBeli =+ $hppbarang;
 
                     $Stoksistem =  $update->stok_barang;
               
@@ -240,6 +243,36 @@ class ControllerWO extends Controller
                         
                      
                }
+               //akutansi HPP terhadap Persediaan (barang keluar)
+            
+               $idHPP = Model_chartAkun::where('nama','=','Harga Pokok Penjualan')->get();
+               $idPersediaan = Model_chartAkun::where('nama','=','Persediaan')->get();
+
+
+                ControllerJurnal::catatanjurnal($idHPP['id'],$totalHargaBeli,0,$idwo);
+                ControllerJurnal::catatanjurnal( $idPersediaan['id'],0,$$totalHargaBeli,$idwo);
+                //end Akutansi 
+
+            //update coa 
+                
+               $updateHPP = Model_chartAkun::find($idHPP['id']);
+               $updatePersediaan = Model_chartAkun::find($idPersediaan['id']);
+
+               $hppsekarang = $updateHPP['saldo'] + $totalHargaBeli;
+               $persediaansekarang = $updatePersediaan['saldo']+$totalHargaBeli;
+
+               $updateHPP ->fill([
+
+                'saldo'=>$hppsekarang
+               ]);
+               $updatePersediaan->fill([
+                'saldo'=>$persediaansekarang
+               ]);
+               //end update COA
+
+               
+
+               
               return redirect()->route('workorder')->with('msgdone',' ');
             } catch (\Throwable $th) {
                   return redirect()->route('workorder')->with('error',' ');
