@@ -29,6 +29,8 @@ class ControllerBarangAdmin extends Controller
             return view('Admin.Barang.kategori',$data);
          }
 
+       
+
 
          public function TambahKategoriBarang(){
 
@@ -153,6 +155,14 @@ class ControllerBarangAdmin extends Controller
             ];
 
             return view('Admin.Barang.DataBarang',$Arrdatabarang);
+         }
+
+         public function Stokrendah(){
+            $Arrdatabarang = [
+               'databarang'=>ModelBarang::with('Kategoribr')->where('stok_barang','<',50)->get()
+            ];
+             return view('Admin.Barang.DataBarangRendah',$Arrdatabarang);
+            
          }
 
 
