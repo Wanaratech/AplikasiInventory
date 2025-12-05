@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Model_chartAkun;
 use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
 use App\Models\ModelStok;
@@ -9,14 +10,14 @@ use Illuminate\Http\Request;
 
 class COntrollerStokKasir extends Controller
 {
-    //
-     public function JumlahStokBarangView(){
+   
+    public function JumlahStokBarangView(){
         $getdataStok=[
 
             'datastok'=>ModelStok::with('barangist')->get()
         ];
 
-        return view('Kasir.Stok.StokBarang',$getdataStok);
+        return view('Admin.Stok.StokBarang',$getdataStok);
     }
     public function StokControllview( ){
 
@@ -28,7 +29,7 @@ class COntrollerStokKasir extends Controller
 
         ];  
 
-        return view('Kasir.Stok.AlurStokbarang',$gatdaatstokforalur);
+        return view('Admin.Stok.AlurStokbarang',$gatdaatstokforalur);
 
 
         
@@ -52,7 +53,7 @@ class COntrollerStokKasir extends Controller
                                             ->with('barangidAl')->get()
             ];
 
-            return view('Kasir.Stok.Alurstok',$GetAlldatabarang);
+            return view('Admin.Stok.Alurstok',$GetAlldatabarang);
 
            
         }elseif($tools['opname'] != NULL){
@@ -60,7 +61,7 @@ class COntrollerStokKasir extends Controller
                     'barang'=>ModelBarang::Where('id','=',$id)->first()
                 ];
 
-                return view('Kasir.Stok.StokOpname',$GetData);
+                return view('Admin.Stok.StokOpname',$GetData);
             
 
             
@@ -96,6 +97,7 @@ class COntrollerStokKasir extends Controller
         //update tabel barang
         $opname_tbBarang  = ModelBarang::find($databarang['id']);
         $opname_tbBarang -> stok_barang = $databarang['stokupdate'];
+        $hpp = $opname_tbBarang['HargaBeli'];
 
 
         //update stok
@@ -119,13 +121,66 @@ class COntrollerStokKasir extends Controller
             
         ]);
 
+        $idselisihpersediaan = Model_chartAkun::where('nama','=','Beban Selisih Persediaan')->first();
+        $idpersediaanasset = Model_chartAkun::where('nama','=','Persediaan Asset')->first();
+       $idpendapatan = Model_chartAkun::where('nama','=','Pendapatan Selisih Persediaan')->first();
+       
+
+        $selisihunit = $databarang['stokawal']-$databarang['stokupdate'];
+        $selisihrupiah = abs($selisihunit*$hpp);
+
+        $idref = 07+rand(99,10000);
+        if ($databarang['stokupdate'] < $databarang['stokawal'] ) {
+            # code...
+            ControllerJurnal::catatanjurnal($idselisihpersediaan['id'],$selisihrupiah,0,$idref);
+            ControllerJurnal::catatanjurnal( $idpersediaanasset['id'],0,$selisihrupiah,$idref);
+
+            $updateslPersediaan = Model_chartAkun::find($idselisihpersediaan['id']);
+            $updatePersediaanAsst = Model_chartAkun::find($idpersediaanasset['id']);
+
+            $saldoSlPr = $updateslPersediaan['saldo']+$selisihrupiah;
+            $saldoPR = $updatePersediaanAsst['saldo']+$selisihrupiah;
+
+            $updatePersediaanAsst->fill([
+                'saldo'=>$saldoPR
+            ]);
+            $updateslPersediaan->fill([
+                'saldo'=>$saldoSlPr
+            ]);
+            $updatePersediaanAsst->save();
+            $updatePersediaanAsst->save();
+
+
+            //update harus
+        }elseif ($databarang['stokupdate'] > $databarang['stokawal']) {
+            # code...
+               ControllerJurnal::catatanjurnal( $idpersediaanasset['id'],$selisihrupiah,0,$idref);
+               ControllerJurnal::catatanjurnal($idpendapatan['id'],0,$selisihrupiah,$idref);
+
+                $updatependapatanPers = Model_chartAkun::find($idpendapatan['id']);
+                $updatePersediaanAsst = Model_chartAkun::find($idpersediaanasset['id']);
+
+            $saldoPen = $updatependapatanPers['saldo']+$selisihrupiah;
+            $saldoPR = $updatePersediaanAsst['saldo']+$selisihrupiah;
+
+            $updatePersediaanAsst->fill([
+                'saldo'=>$saldoPR
+            ]);
+            $updatependapatanPers->fill([
+                'saldo'=>$saldoPen
+            ]);
+            $updatePersediaanAsst->save();
+            $updatePersediaanAsst->save();
+            
+        }
+
 
         $opname_tbBarang ->save();
         $update_stok->save();
         $addAlur->save();
 
 
-        return redirect()->route('stokcontrolKasir')->with('msgdone','');
+        return redirect()->route('stokcontrol')->with('msgdone','');
         
     }
 }

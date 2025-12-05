@@ -3,22 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Model_chartAkun;
 use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
 use App\Models\ModelHistoryPembayaran;
 use App\Models\ModelInvKeluar;
+use App\Models\MOdelMetodeBayar;
 use App\Models\ModelNota;
 use App\Models\ModelPembayaranNota;
 use App\Models\ModelRekanan;
+use App\Models\ModelStok;
 use App\Models\ModelWO;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ControllerWOKasir extends Controller
 {
     //
 
     
-
     public function Wodashboard(){
 
             $reqdatawo  = [
@@ -104,7 +108,7 @@ class ControllerWOKasir extends Controller
 
 
             $prosesaddtowo->save();
-            return redirect()->route('workorderKasir')->with('msgdone','');
+            return redirect()->route('workorder')->with('msgdone','');
     }
 
 
@@ -131,7 +135,7 @@ class ControllerWOKasir extends Controller
         }elseif ($toolswo['selesai']) {
 
             if ($cekbarang > 0) {
-                 return redirect()->route('workorderKasir')->with('SudahadanInv','');
+                 return redirect()->route('workorder')->with('SudahadanInv','');
             }else{
 
                   $getdata  = [ 
@@ -148,11 +152,11 @@ class ControllerWOKasir extends Controller
             
 
             if ($cekbarang > 0) {
-               return redirect()->route('workorderKasir')->with('gagalhapus','');
+               return redirect()->route('workorder')->with('gagalhapus','');
             }else{
 
                 ModelWO::where('id','=',$toolswo['idwo'])->delete();
-                return redirect()->route('workorderKasir')->with('msgdonehps','');
+                return redirect()->route('workorder')->with('msgdonehps','');
 
             }
         }
@@ -177,6 +181,7 @@ class ControllerWOKasir extends Controller
 
             $items = $datainv['item'];
             $idwo = $datainv['idwo'];
+            $totalHargaBeli = 0 ;
             try {
                foreach ($items as $item) {
                  $inputketbInv = new ModelInvKeluar();
@@ -189,6 +194,9 @@ class ControllerWOKasir extends Controller
 
 
                     $update = ModelBarang::find($item['barang']);
+                    $hppbarang = $update['HargaBeli'];
+                    $totalHargaBeli += $hppbarang*$item['jumlah'];
+
 
                     $Stoksistem =  $update->stok_barang;
               
@@ -196,12 +204,12 @@ class ControllerWOKasir extends Controller
                                 cek apakah qty keluar apakah lebih besar dari stok yang ada di sistem ?
                         */
                     if ($item['jumlah'] > $Stoksistem) {
-                         return redirect()->route('workorderKasir')->with('Gagalinputbsr',' ');
+                         return redirect()->route('workorder')->with('Gagalinputbsr',' ');
                         break;
                     }else{
                          $stokupdate = $Stoksistem - $item['jumlah'];
 
-                         echo $stokupdate.'<br>';
+                       
                         //jalankan stok update barang
                          $update->stok_barang = $stokupdate;
 
@@ -217,6 +225,17 @@ class ControllerWOKasir extends Controller
 
                          ]);
 
+                         $updatestoktbStok = ModelStok::where('idbarang','=',$item['barang'])->first();
+                         $pertanggal = date('y-m-d');
+                         $updatestoktbStok->fill([
+                            'idbarang'=>$item['barang'],
+                            'stok'=>$stokupdate,
+                            'pertanggal'=>$pertanggal
+
+                         ]);
+
+            
+                         $updatestoktbStok->save();
                          $update->save();
                          $inputtotbalurStok->save(); 
                            //input dan sesuaikan stok di db
@@ -225,9 +244,39 @@ class ControllerWOKasir extends Controller
                         
                      
                }
-              return redirect()->route('workorderKasir')->with('msgdone',' ');
+               //akutansi HPP terhadap Persediaan (barang keluar)
+            
+               $idHPP = Model_chartAkun::where('nama','=','Harga Pokok Penjualan')->first();
+               $idPersediaan = Model_chartAkun::where('nama','=','Persediaan Asset')->first();
+
+
+                ControllerJurnal::catatanjurnal($idHPP['id'],$totalHargaBeli,0,$idwo);
+                ControllerJurnal::catatanjurnal( $idPersediaan['id'],0,$totalHargaBeli,$idwo);
+                //end Akutansi 
+
+            //update coa 
+                
+               $updateHPP = Model_chartAkun::find($idHPP['id']);
+               $updatePersediaan = Model_chartAkun::find($idPersediaan['id']);
+
+               $hppsekarang = $updateHPP['saldo'] + $totalHargaBeli;
+               $persediaansekarang = $updatePersediaan['saldo']+$totalHargaBeli;
+
+               $updateHPP ->fill([
+
+                'saldo'=>$hppsekarang
+               ]);
+               $updatePersediaan->fill([
+                'saldo'=>$persediaansekarang
+               ]);
+               //end update COA
+
+               
+
+               
+              return redirect()->route('workorder')->with('msgdone',' ');
             } catch (\Throwable $th) {
-                  return redirect()->route('workorderKasir')->with('error',' ');
+                  return redirect()->route('workorder')->with('error',' ');
             }
         }
         //note yang harus ditambah
@@ -254,9 +303,9 @@ class ControllerWOKasir extends Controller
     public function Notadashboard(){
          $reqdatawont  = [
                 
-                'datawo'=>ModelWO::where('Status','=','Selesai')
-                ->orwhere('Status','=','Piutang')
+                'datawo'=>ModelWO::where('Status','=','Piutang')
                 ->get(),
+
             ];
         return view('Kasir.WorkOrder.Nota',$reqdatawont);
     }
@@ -282,17 +331,19 @@ class ControllerWOKasir extends Controller
 
         $dataWOfNota = [
 
-                    'datawoget'=>ModelWO::where('id','=',$idwo)->first(),
-                    'datawo'=>ModelWO::where('Status','=','Open')->first(),
-                    'databarangKeluar'=>ModelInvKeluar::where('id_wo','=',$idwo)->with('databarangwo')->get()
+                    'datawo'=>ModelWO::where('id', $idwo)
+                                ->where('Status', 'Open')
+                                ->first(),
+                    'databarangKeluar'=>ModelInvKeluar::where('id_wo','=',$idwo)->with('databarangwo')->get(),
+                    'datametodebayar'=>MOdelMetodeBayar::all()
                 ];
 
         if ($cekinv > 0 ) {
             # code...   
-             return view('Kasir.WorkOrder.Notaitem',$dataWOfNota);
+             return view('Admin.WorkOrder.Notaitem',$dataWOfNota);
     }
         else{
-             return redirect()->route('notaaddKasir')->with('errorinv',' ');
+             return redirect()->route('notaadd')->with('errorinv',' ');
         }
 
     }
@@ -302,9 +353,7 @@ class ControllerWOKasir extends Controller
     //oreder selesai ketika sudah ada nota
     
     //harga keluar jika sudah ada nota
-    
-        //update status dan total harga  di WORK ORDER jika sisa lebih dari 0 maka akan termasuk piutang
-        //LOGIKA INI DIGUNAKAN UNTUK MEMUNCULKAN TOTAL HARGA PADA WO DAN STATUSNYA
+    // FUNCSI INI ADALAH FUNGSI YANGDIGUNAKAN UNTUK MELAKUKAN UPDATE TERHADAP WORK ORDER, DIMANA YANG DIUPDATE ADALAH STATUS DAN HARGA
 
     private function updateworkroderHrS($dataupwo){
 
@@ -317,33 +366,29 @@ class ControllerWOKasir extends Controller
 
             'harga'=>$totalharga,
             'status'=>$status
+
+
         ]);
 
         $updatedatawosthr->save();
-         return redirect()->route('notaKasir')->with('msgdone','');
+         return redirect()->route('nota')->with('msgdone','');
 
         
 
     }
-
-
 ///// input ke nota/////
     public function inputnota(Request $reqdatanota){
 
        $datanota = [
 
-       'idwo'=>$reqdatanota->idwo,
+        'idwo'=>$reqdatanota->idwo,
         'items'=>$reqdatanota->items,
         'deposit'=>$reqdatanota->deposit,
-        'totalharga'=>$reqdatanota->total
+        'totalharga'=>$reqdatanota->total,
+        'metodebayar'=>$reqdatanota->metodebayar
        ];
-       
-
 
        return $this->inputnotatodb($datanota);
-
-      
-
 
     }
 
@@ -351,6 +396,7 @@ class ControllerWOKasir extends Controller
     private function inputnotatodb($datanota){
 
         $idwo = $datanota['idwo'];
+        $metodepembayaran = $datanota['metodebayar'];
         $items = $datanota['items'];
         $tanggal = date('d');
         $bulan  =date('m');
@@ -360,7 +406,6 @@ class ControllerWOKasir extends Controller
         $totalbayar  = (int) preg_replace('/[^0-9]/', '',$datanota['totalharga'])/100;
         $sisa = $totalbayar - $deposit;
         $totalharga  = 0;
-
         foreach ($items as $databarang ) {
             $inputketbnota = new ModelNota();
             $inputketbnota->fill([
@@ -380,9 +425,10 @@ class ControllerWOKasir extends Controller
         }
 
 
-        ///
+        /// Input Pembayaran NOta
 
         $inpembayaran = new ModelPembayaranNota();
+        
 
         $inpembayaran->fill([
             'id'=>$nonota,
@@ -392,6 +438,9 @@ class ControllerWOKasir extends Controller
             'idwo'=>$idwo
         ]);
 
+
+        //
+
         $inputHistory  = new ModelHistoryPembayaran();
 
         $inputHistory ->fill([
@@ -399,14 +448,14 @@ class ControllerWOKasir extends Controller
             'totalbayar'=>$totalharga,
             'dibayarkan'=>$deposit,
             'sisa'=>$sisa,
-            'pertanggal'=>$dates
+            'pertanggal'=>$dates,
+            'id_paymentmethod'=>$metodepembayaran
         ]);
 
         $inputHistory->Save();
-
         $inpembayaran->save();
 
-        
+
         //update status dan total harga  di WORK ORDER jika sisa lebih dari 0 maka akan termasuk piutang
         //LOGIKA INI DIGUNAKAN UNTUK MEMUNCULKAN TOTAL HARGA PADA WO DAN STATUSNYA
 
@@ -417,18 +466,93 @@ class ControllerWOKasir extends Controller
             'totalharga' => $totalharga,
             'status'=>'Piutang'
         ];
-            //akutansi piutang dan kas
 
+        // Jurnal Piutang
+        $cekidpenjualan = Model_chartAkun::where('nama','=','Penjualan')->first();
+        $cekidpiutang = Model_chartAkun::where('nama','=','Piutang Rekanan')->first();
+        $cekidcoaMetodebayar  =MOdelMetodeBayar::where('id','=',$metodepembayaran)->first();
+        $idakunpenjualan = $cekidpenjualan['id'];
+        $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
+        $idpiutang = $cekidpiutang['id'];
+        //pakaid nota
+        ControllerJurnal::catatanjurnal($idakunPembayaran,$deposit,0,$nonota);
+        ControllerJurnal::catatanjurnal($idpiutang,$deposit,0,$nonota);
+        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$nonota);
+
+        //update coa besok copas dibawah
+
+         $updatecoaAsset = Model_chartAkun::find($idakunPembayaran);
+         $updatecoaPenjualan = Model_chartAkun::find($idakunpenjualan);
+         $updatecoapiutang  = Model_chartAkun::find($idpiutang);
+
+               //selesaikan Done (todo list buat update coa, tapi pertama harus car iidulu berapa isi saldo coanya)
+            $saldoAsset = $updatecoaAsset['saldo'];
+            $saldoPenjualan = $updatecoaPenjualan['saldo'];
+            $saldoPiutang = $updatecoapiutang['saldo'];
+
+            $totalpiutang = $totalharga-$deposit;
+            $totalsaldoAsset = $saldoAsset+$deposit;
+            $totalsaldopiutang = $totalpiutang;
+            $totalsaldopenjualan  = $saldoPenjualan+$totalharga;
+            
+
+               $updatecoaAsset->fill([
+                    'saldo'=>$totalsaldoAsset
+               ]);
+
+               $updatecoaPenjualan->fill([
+                    'saldo'=>$totalsaldopenjualan
+               ]);
+               $updatecoapiutang->fill([
+
+                    'saldo'=>$totalsaldopiutang
+               ]);
+
+               $updatecoaAsset->save();
+               $updatecoaPenjualan->save();
+               $updatecoapiutang->save();
+        
+
+        
          return $this->updateworkroderHrS($dataupwo);
         }else{
             $dataupwo =[
 
             'idwo'=>$idwo,
             'totalharga' => $totalharga,
-            'status'=>'Selesai'
+            'status'=>'Selesai' 
         ];
 
-        //akutansi kas dan
+          //jurnal selesai, ini untuk jurnal jika dibaayr cash dan tidak ada piutang usaha
+        $cekidpenjualan = Model_chartAkun::where('nama','=','Penjualan')->first();
+        $cekidcoaMetodebayar  =MOdelMetodeBayar::where('id','=',$metodepembayaran)->first();
+        $idakunpenjualan = $cekidpenjualan['id'];
+        $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
+
+        ControllerJurnal::catatanjurnal($idakunPembayaran,$totalharga,0,$nonota);
+        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$nonota);
+
+        //update Saldo COA
+            $updatecoaAsset = Model_chartAkun::find($idakunPembayaran);
+            $updatecoaPenjualan = Model_chartAkun::find($idakunpenjualan);
+
+               //selesaikan Done (todo list buat update coa, tapi pertama harus car iidulu berapa isi saldo coanya)
+            $saldoAsset = $updatecoaAsset['saldo'];
+            $saldoPenjualan = $updatecoaPenjualan['saldo'];
+
+            $totalsaldoAsset = $saldoAsset+$totalharga;
+            $totalsaldopenjualan  = $saldoPenjualan+$totalharga;
+
+               $updatecoaAsset->fill([
+                    'saldo'=>$totalsaldoAsset
+               ]);
+
+               $updatecoaPenjualan->fill([
+                    'saldo'=>$totalsaldopenjualan
+               ]);
+
+               $updatecoaAsset->save();
+               $updatecoaPenjualan->save();
          return $this->updateworkroderHrS($dataupwo);
 
         }
@@ -438,8 +562,9 @@ class ControllerWOKasir extends Controller
     
 
 
-     public function notatools(Request $reqdatanotas ){
-          $tools = [
+     public function notatools(Request $reqdatanotas){
+
+        $tools = [
 
             'detail'=>$reqdatanotas->detail,
             'pelunasan'=>$reqdatanotas->pelunasan,
@@ -453,12 +578,13 @@ class ControllerWOKasir extends Controller
             'nota'=>ModelNota::where('nomorwo','=',$idwo)->first(),
             'notadata'=>ModelNota::where('nomorwo','=',$idwo)->get(),
             'pembayaran'=>ModelPembayaranNota::where('idwo','=',$idwo)->first(),
+            'datametodebayar'=>MOdelMetodeBayar::all()
         ];
 
         if ($tools['detail'] !=NULL) {
-        return view('Kasir.WorkOrder.DetailNota',$data);
-        }elseif ($tools['pelunasan']!=Null) {
-           return view('Kasir.WorkOrder.Pelunasan',$data);
+        return view('Admin.WorkOrder.DetailNota',$data);
+        }elseif ($tools['pelunasan']!=NULL) {
+           return view('Admin.WorkOrder.pelunasan',$data);
         }elseif($tools['history'] !=NUll){
 
         //ambil id wo terlebih dahulu untuk megecek karena pada tabel hostory pembayaran, karena pada fungsi ini idnota tidak terdefinisikan jadi akan diambil melalui modelpembayaran yang mengandung id nota sesuai dengan id wo terpilih
@@ -473,13 +599,13 @@ class ControllerWOKasir extends Controller
         
         ];
 
-         return view('Kasir.WorkOrder.HistoryTransaksi',$getdatahistory);
+         return view('Admin.WorkOrder.HistoryTransaksi',$getdatahistory);
         }
         
+       
     }
 
 
-    
     public function pelunasan( Request $reqdatapelunasan){
 
     $datapelunasan = [
@@ -487,7 +613,8 @@ class ControllerWOKasir extends Controller
        'deposit' => $reqdatapelunasan->deposit,
        'sisabayar' => $reqdatapelunasan->sisabayar,
        'bayaransekarang' => $reqdatapelunasan->bayaransekarang,
-       'totalharganota'=>$reqdatapelunasan->totalharganota
+       'totalharganota'=>$reqdatapelunasan->totalharganota,
+       'metodebayar'=>$reqdatapelunasan->metodebayar
 
     ];
 
@@ -499,7 +626,50 @@ class ControllerWOKasir extends Controller
     private function ProsesPelunasan($datapelunasan){
         $updateedDeposit = $datapelunasan['deposit'] + $datapelunasan['bayaransekarang'];
         $updatesisapembayaran = $datapelunasan['sisabayar']-$datapelunasan['bayaransekarang'];
-         $dates = date('y-m-d');
+        $dates = date('y-m-d');
+
+        $metodepembayaran = $datapelunasan['metodebayar'];
+
+    
+        $cekidpiutang = Model_chartAkun::where('nama','=','Piutang Rekanan')->first();
+        $cekidcoaMetodebayar  =MOdelMetodeBayar::where('id','=',$metodepembayaran)->first();
+        $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
+        $idpiutang = $cekidpiutang['id'];
+        //pakaid nota
+        ControllerJurnal::catatanjurnal($idakunPembayaran,$datapelunasan['bayaransekarang'],0,$datapelunasan['idnota']);
+        ControllerJurnal::catatanjurnal( $idpiutang,0,$datapelunasan['bayaransekarang'],$datapelunasan['idnota']);
+
+          $updatecoaAsset = Model_chartAkun::find($idakunPembayaran);
+          $updatecoapiutang  = Model_chartAkun::find($idpiutang);
+            
+          $saldoAsset = $updatecoaAsset['saldo'];
+            
+            $saldoPiutang = $updatecoapiutang['saldo'];
+
+           $sisahutang = $saldoPiutang - $datapelunasan['deposit'];
+           $totalsaldoAsset = $saldoAsset+$datapelunasan['deposit'];
+          
+            
+
+               $updatecoaAsset->fill([
+                    'saldo'=>$totalsaldoAsset
+               ]);
+
+              
+               $updatecoapiutang->fill([
+
+                    'saldo'=>$sisahutang
+               ]);
+
+               $updatecoaAsset->save();
+               $updatecoapiutang->save();
+
+
+
+
+
+
+
 
       
 
@@ -550,13 +720,13 @@ class ControllerWOKasir extends Controller
         $updatedatawosthr->save();
          $updatedataNota->save();
         $inputtotbHistory->save();
-         return redirect()->route('notaKasir')->with('msgdone','');
+         return redirect()->route('nota')->with('msgdone','');
 
 
 
   } catch (\Throwable $th) {
     //throw $th;
-     return redirect()->route('notaKasir')->with('msgerror','');
+     return redirect()->route('nota')->with('msgerror','');
 
   }
             
@@ -565,5 +735,4 @@ class ControllerWOKasir extends Controller
         
 
     }
-       
 }

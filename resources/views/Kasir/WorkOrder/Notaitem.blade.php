@@ -184,9 +184,19 @@
         <button type="button" class="btn btn-primary mb-3" id="addRow">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
-        <button type="submit" class="btn btn-success">Simpan</button>
+       
 
          <br>
+         <div class="col-md-6">
+    <label for="exampleInputEmail1" class="form-label">Metode Bayar</label>
+   <select id="Dropdown-data" name="metodebayar" class="form-control">
+    <option value="">Pilih Metode Pembayaran</option>
+    @foreach($datametodebayar as $data)
+        <option value="{{ $data->id }}">{{ $data->id }} - {{ $data->nama_metode }}</option>
+    @endforeach
+</select>
+
+  </div>
         <div class="row mt-4">
     <div class="col-md-6">
         <label for="deposit">Deposit</label>
@@ -197,8 +207,11 @@
             <input type="text" class="form-control" id="total" name="total" readonly>
         </div>
     </div>
+    <br>
+     <button type="submit" class="btn btn-success">Simpan</button>
     </form>
 </div>
+
 
 
     <!-- Tom Select JS -->

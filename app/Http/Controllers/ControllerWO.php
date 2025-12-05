@@ -628,6 +628,49 @@ class ControllerWO extends Controller
         $updatesisapembayaran = $datapelunasan['sisabayar']-$datapelunasan['bayaransekarang'];
         $dates = date('y-m-d');
 
+        $metodepembayaran = $datapelunasan['metodebayar'];
+
+    
+        $cekidpiutang = Model_chartAkun::where('nama','=','Piutang Rekanan')->first();
+        $cekidcoaMetodebayar  =MOdelMetodeBayar::where('id','=',$metodepembayaran)->first();
+        $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
+        $idpiutang = $cekidpiutang['id'];
+        //pakaid nota
+        ControllerJurnal::catatanjurnal($idakunPembayaran,$datapelunasan['bayaransekarang'],0,$datapelunasan['idnota']);
+        ControllerJurnal::catatanjurnal( $idpiutang,0,$datapelunasan['bayaransekarang'],$datapelunasan['idnota']);
+
+          $updatecoaAsset = Model_chartAkun::find($idakunPembayaran);
+          $updatecoapiutang  = Model_chartAkun::find($idpiutang);
+            
+          $saldoAsset = $updatecoaAsset['saldo'];
+            
+            $saldoPiutang = $updatecoapiutang['saldo'];
+
+           $sisahutang = $saldoPiutang - $datapelunasan['deposit'];
+           $totalsaldoAsset = $saldoAsset+$datapelunasan['deposit'];
+          
+            
+
+               $updatecoaAsset->fill([
+                    'saldo'=>$totalsaldoAsset
+               ]);
+
+              
+               $updatecoapiutang->fill([
+
+                    'saldo'=>$sisahutang
+               ]);
+
+               $updatecoaAsset->save();
+               $updatecoapiutang->save();
+
+
+
+
+
+
+
+
       
 
   try {

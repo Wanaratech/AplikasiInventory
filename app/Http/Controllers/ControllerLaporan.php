@@ -94,9 +94,9 @@ class ControllerLaporan extends Controller
         $tanggalAkhir =$tanggal['tanggalAkhir'];
         $data = ['Jurnal'=> MOdelJurnal::whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])->with('idakun')
             ->orderBy('idnota')
-            ->orderBy('id_akun')
+            ->orderBy('id')
             ->get()
-            ->groupBy('idnota')];
+            ->groupBy('id')];
         return view('Admin.Laporan.Jurnal',$data);
     }
 

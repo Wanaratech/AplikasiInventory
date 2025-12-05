@@ -129,13 +129,12 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Kasir/Sales/notaview" method="POST">
+                                                            <form action="/Admin/Sales/notaview" method="POST">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idwo" value="{{ $data['id'] }}">
 
-                                                              
-                                                               @php
+                                                              @php
                                                                   if ($data->status =="Piutang") {
                                                                     # code...
                                                                     echo'  <li><button class="dropdown-item" type="submit" name ="pelunasan" value ="pelunasan">Lunasi</button></li>';
@@ -144,8 +143,7 @@
                                                                   }
                                                               @endphp
 
-
-                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail / Cetak</button></li>
+                                                              <li><button class="dropdown-item" type="submit" name ="detail" value="detail">Detail / Cetak</button></li>
                                                               <li><button class="dropdown-item" type="submit" name ="history" value="detail">History Transaksi</button></li>
 
                                                             </form>

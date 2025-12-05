@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-4">
                 <label class="form-label">Jumlah Pesanan</label>
-                <input type="number" class="form-control" name="jumlah_pesanan">
+                <input autocomplete="off" type="number" class="form-control" name="jumlah_pesanan">
             </div>
         </div>
 
@@ -59,7 +59,7 @@
             </div>
             <div class="col-md-4">
                 <label class="form-label">Ukuran Cetak</label>
-                <input  autocomplete="off"type="text" class="form-control" name="ukuran_cetak">
+                <input autocomplete="off" type="text" class="form-control" name="ukuran_cetak">
             </div>
         </div>
 
@@ -131,7 +131,7 @@
             </div>
             <div class="col-md-4">
                 <label class="form-label">Isi Perbuku</label>
-                <input autocomplete="off" type="text" class="form-control" name="isi_perbuku">
+                <input type="text" class="form-control" name="isi_perbuku">
             </div>
         </div>
 

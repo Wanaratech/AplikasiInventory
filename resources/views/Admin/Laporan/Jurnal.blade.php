@@ -14,7 +14,6 @@
 <style>
 @media print {
 
-    /* SEMBUNYIKAN SEMUA ELEMEN DI LUAR PRINT-AREA */
     .no-print,
     header,
     nav,
@@ -29,77 +28,84 @@
         display: none !important;
     }
 
-    /* Pastikan print-area full width dan di tengah */
     .print-area {
         width: 100% !important;
         margin: 0 auto !important;
     }
+
+    table {
+        font-size: 12px;
+    }
 }
+
+.table .text-right { text-align: right; }
+.table .text-center { text-align: center; }
 </style>
 
 
-
-
-{{-- ===================== PRINT-AREA START ===================== --}}
 <div class="container mt-4 print-area">
-    <h3 class="text-center mb-4">Jurnal Umum<br>Utama Grafika<br></h3>
+    <h3 class="text-center mb-1">Jurnal Umum</h3>
+    <p class="text-center mb-4">Utama Grafika</p>
 
-    {{-- Tombol print tidak ikut tercetak --}}
     <button class="btn btn-primary mb-3 no-print" onclick="window.print()">Print Laporan</button>
 
-    <table class="table table-bordered table-striped">
-        <thead class="thead-dark text-center">
-            <tr>
-                <th>Tanggal</th>
-                <th>Nama Akun</th>
-                <th>Referensi</th>
-                <th>Debet</th>
-                <th>Kredit</th>
-            </tr>
-        </thead>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped small">
+            <thead class="thead-dark text-center">
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Nama Akun</th>
+                    <th>Referensi</th>
+                    <th>Debet</th>
+                    <th>Kredit</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            @php
-                $debittotal = 0;
-                $kredittotal = 0;
-            @endphp
+            <tbody>
+                @php
+                    $debittotal = 0;
+                    $kredittotal = 0;
+                @endphp
 
-            @foreach ($Jurnal as $idnota => $items)
-                @php $first = true; @endphp
-                
-                @foreach ($items as $data)
-                    <tr>
-                        {{-- tampilkan tanggal sekali saja untuk tiap idnota --}}
-                        @if ($first)
-                            <td>{{ $data->created_at->format('d-m-Y') }}</td>
-                            @php $first = false; @endphp
-                        @else
-                            <td></td>
-                        @endif
+                @foreach ($Jurnal as $group => $items)
+                    @foreach ($items as $data)
 
-                        <td>{{ $data->idakun->nama ?? '-' }}</td>
-                        <td>{{ $data->idnota }}</td>
-                        <td>Rp {{ number_format($data->debit, 0, ',', '.') }}</td>
-                        <td>Rp {{ number_format($data->kredit, 0, ',', '.') }}</td>
+                        @php
+                            try {
+                                $tanggal = $data->created_at instanceof \Carbon\Carbon
+                                    ? $data->created_at->format('d-m-Y H:i:s')
+                                    : \Carbon\Carbon::parse($data->created_at)->format('d-m-Y H:i:s');
+                            } catch (\Exception $e) {
+                                $tanggal = $data->created_at ?? '-';
+                            }
+                        @endphp
+
+                        <tr>
+                            <td>{{ $tanggal }}</td>
+                            <td>{{ $data->idakun->nama ?? '-' }}</td>
+                            <td class="text-center">{{ $data->idnota }}</td>
+                            <td class="text-right">Rp {{ number_format($data->debit, 0, ',', '.') }}</td>
+                            <td class="text-right">Rp {{ number_format($data->kredit, 0, ',', '.') }}</td>
+                        </tr>
 
                         @php
                             $debittotal += $data->debit;
                             $kredittotal += $data->kredit;
                         @endphp
-                    </tr>
-                @endforeach
-            @endforeach
-        </tbody>
 
-        <tfoot class="font-weight-bold">
-            <tr>
-                <td colspan="3" class="text-center">Total</td>
-                <td>Rp {{ number_format($debittotal, 0, ',', '.') }}</td>
-                <td>Rp {{ number_format($kredittotal, 0, ',', '.') }}</td>
-            </tr>
-        </tfoot>
-    </table>
+                    @endforeach
+                @endforeach
+            </tbody>
+
+            <tfoot>
+                <tr class="font-weight-bold">
+                    <td colspan="3" class="text-center">Total</td>
+                    <td class="text-right">Rp {{ number_format($debittotal, 0, ',', '.') }}</td>
+                    <td class="text-right">Rp {{ number_format($kredittotal, 0, ',', '.') }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
-{{-- ===================== PRINT-AREA END ===================== --}}
 
 @endsection

@@ -91,7 +91,18 @@
                                 ❌ Jumlah pelunasan tidak boleh melebihi sisa pembayaran!
                             </small>
                         </div>
-                        <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm mt-2">Simpan</button>
+                             <br>
+                                <div class="col-md-6">
+                            <label for="exampleInputEmail1" class="form-label">Metode Bayar</label>
+                        <select id="Dropdown-data" name="metodebayar" class="form-control">
+                            <option value="">Pilih Metode Pembayaran</option>
+                            @foreach($datametodebayar as $data)
+                                <option value="{{ $data->id }}">{{ $data->id }} - {{ $data->nama_metode }}</option>
+                            @endforeach
+                        </select>
+
+                        </div>
+                       <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm mt-2">Simpan</button>
                     </form>
 
                     <p class="mt-4">Duta Utama Grafika</p>
