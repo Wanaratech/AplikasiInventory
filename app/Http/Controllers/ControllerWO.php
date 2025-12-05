@@ -468,8 +468,8 @@ class ControllerWO extends Controller
         ];
 
         // Jurnal Piutang
-          $cekidpenjualan = Model_chartAkun::where('nama','=','Penjualan')->first();
-           $cekidpiutang = Model_chartAkun::where('nama','=','Piutang Rekanan')->first();
+        $cekidpenjualan = Model_chartAkun::where('nama','=','Penjualan')->first();
+        $cekidpiutang = Model_chartAkun::where('nama','=','Piutang Rekanan')->first();
         $cekidcoaMetodebayar  =MOdelMetodeBayar::where('id','=',$metodepembayaran)->first();
         $idakunpenjualan = $cekidpenjualan['id'];
         $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
@@ -578,6 +578,7 @@ class ControllerWO extends Controller
             'nota'=>ModelNota::where('nomorwo','=',$idwo)->first(),
             'notadata'=>ModelNota::where('nomorwo','=',$idwo)->get(),
             'pembayaran'=>ModelPembayaranNota::where('idwo','=',$idwo)->first(),
+            'datametodebayar'=>MOdelMetodeBayar::all()
         ];
 
         if ($tools['detail'] !=NULL) {
@@ -612,7 +613,8 @@ class ControllerWO extends Controller
        'deposit' => $reqdatapelunasan->deposit,
        'sisabayar' => $reqdatapelunasan->sisabayar,
        'bayaransekarang' => $reqdatapelunasan->bayaransekarang,
-       'totalharganota'=>$reqdatapelunasan->totalharganota
+       'totalharganota'=>$reqdatapelunasan->totalharganota,
+       'metodebayar'=>$reqdatapelunasan->metodebayar
 
     ];
 
@@ -624,7 +626,7 @@ class ControllerWO extends Controller
     private function ProsesPelunasan($datapelunasan){
         $updateedDeposit = $datapelunasan['deposit'] + $datapelunasan['bayaransekarang'];
         $updatesisapembayaran = $datapelunasan['sisabayar']-$datapelunasan['bayaransekarang'];
-         $dates = date('y-m-d');
+        $dates = date('y-m-d');
 
       
 

@@ -184,7 +184,7 @@
         <button type="button" class="btn btn-primary mb-3" id="addRow">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
-        <button type="submit" class="btn btn-success">Simpan</button>
+       
 
          <br>
          <div class="col-md-6">
@@ -207,6 +207,8 @@
             <input type="text" class="form-control" id="total" name="total" readonly>
         </div>
     </div>
+    <br>
+     <button type="submit" class="btn btn-success">Simpan</button>
     </form>
 </div>
 
