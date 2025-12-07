@@ -20,4 +20,9 @@ class ModelPembayaranNota extends Model
       public function ModelwoRS(){
         return $this->belongsTo(ModelWO::class,'idwo');
     }
+
+ public function nota(){
+    return $this->hasMany(ModelNota::class, 'id_pembayaran');
+}
+
 }

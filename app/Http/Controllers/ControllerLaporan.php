@@ -201,6 +201,7 @@ class ControllerLaporan extends Controller
         $notabr =[
             'nota'=>ModelPembayaranNota::whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])
                           ->with('ModelwoRS')
+                          ->with('Modelnotar')
                             ->get()
         ];
             # code...

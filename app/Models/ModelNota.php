@@ -21,4 +21,11 @@ class ModelNota extends Model
       public function Modelwor(){
         return $this->belongsTo(ModelWO::class,'id_wo');
     }
+    
+      public function pembayaran(){
+        return $this->belongsTo(ModelPembayaranNota::class, 'id_pembayaran');
+    }
+
+
+    
 }

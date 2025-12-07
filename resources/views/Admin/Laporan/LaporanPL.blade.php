@@ -102,10 +102,12 @@
                             <th>Nomor Nota</th>
                             <th>Nama Pemesan</th>
                             <th>Jenis Pesanan</th>
-                            <th>Detail</th>
+                            <th>Detail WO</th>
+                            <th>Penjualan</th>
                             <th>Total Bayar</th>
                             <th>Dibayarkan</th>
                             <th>Sisa</th>
+                           
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -143,6 +145,14 @@
                                         {{ implode(' - ', $detail) }}
 
                                 </td>
+                                <td>@php
+                                        $detail = array_filter([
+                                            $data->notaid->barang,
+                                            
+                                        ]);
+                                        @endphp
+
+                                        {{ implode(' - ', $detail) }}</td>
                                 <td>Rp.{{ number_format($data['totalbayar'], 0, ',', '.') }}</td>
                                 <td>Rp.{{ number_format($data['deposit'], 0, ',', '.') }}</td>
                                 <td>Rp.{{ number_format($data['sisapembayaran'], 0, ',', '.') }}</td>
