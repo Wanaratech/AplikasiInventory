@@ -310,6 +310,17 @@ class ControllerWO extends Controller
         return view('Admin.WorkOrder.Nota',$reqdatawont);
     }
 
+    public function Notaselesai(Request $reqdatawont){
+
+         $reqdatawont  = [
+                
+                'datawo'=>ModelWO::where('Status','=','Selesai')
+                ->get(),
+
+            ];
+        return view('Admin.WorkOrder.NotaSelesai',$reqdatawont);
+    }
+
     public function Addnotavw(){
          $reqdatawont  = [
                 
@@ -402,9 +413,10 @@ class ControllerWO extends Controller
         $bulan  =date('m');
         $dates = date('y-m-d');
         $nonota = $tanggal.$bulan.$idwo;
+        $totalbayar = (int) $datanota['totalharga'];
         $deposit  = (int) preg_replace('/[^0-9]/', '',$datanota['deposit']);
-        $totalbayar  = (int) preg_replace('/[^0-9]/', '',$datanota['totalharga'])/100;
         $sisa = $totalbayar - $deposit;
+
         $totalharga  = 0;
         foreach ($items as $databarang ) {
             $inputketbnota = new ModelNota();

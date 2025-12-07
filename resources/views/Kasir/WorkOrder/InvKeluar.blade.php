@@ -63,7 +63,7 @@
 @endif
 <div class="container mt-4">
 
-    <form action="/Admin/WO/InvKeluar" method="POST">
+    <form action="/Kasir/WO/InvKeluar" method="POST">
        
         
         @csrf

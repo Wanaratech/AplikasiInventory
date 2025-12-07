@@ -162,49 +162,101 @@
 <style>
 @media print {
 
-     .sidebar, .navbar, .no-print {
-        display: none !important;   /* Sembunyikan sidebar & navbar */
-    }
-    .content-wrapper, .container, .card {
-        margin: 0 !important;
-        width: 100% !important;     /* Biar full lebar halaman */
-        box-shadow: none !important;
-    }
-
-    body {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        font-size: 13px;
-         background: #fff !important;
-    }
-
-    .no-print {
+    /* Sembunyikan elemen yang tidak dicetak */
+    .no-print,
+    .sidebar,
+    .navbar,
+    footer,
+    header,
+    nav,
+    .topbar {
         display: none !important;
     }
 
+    /* Area konten agar full kertas */
+    .content-wrapper,
+    .container,
     .card {
-        border: none !important;
-        box-shadow: none !important;
-    }
-
-    /* Hilangin margin container biar full ke kertas */
-    .container {
-        max-width: 100% !important;
-        padding: 0 !important;
         margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        border: none !important;
     }
 
-    /* Tambahin footer otomatis di bawah print */
+    body {
+        background: #fff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        font-size: 13px !important;
+        line-height: 1.35;
+    }
+
+    /* Teks tebal */
+    .container *,
+    .card *,
+    table *,
+    #printArea * {
+        font-weight: 900 !important;
+        color: #000 !important;
+    }
+
+    /* TABEL FULL WIDTH */
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        table-layout: auto !important;
+    }
+
+    /* BORDER TEBAL */
+    table th,
+    table td {
+        border: 2px solid #000 !important;
+        padding: 6px 8px !important;
+        vertical-align: top !important;
+        white-space: normal !important;
+    }
+
+    /* HEADER TABEL */
+    table th {
+        background: #eaeaea !important;
+        font-size: 13px !important;
+    }
+
+    /* Rincian tambahan <pre> */
+    pre {
+        font-family: inherit !important;
+        white-space: pre-wrap !important;
+        border: 2px solid #000 !important;
+        padding: 8px !important;
+        background: #f9f9f9 !important;
+    }
+
+    /* Hilangkan DataTables control */
+    .dataTables_length,
+    .dataTables_filter,
+    .dataTables_info,
+    .dataTables_paginate {
+        display: none !important;
+    }
+
+    .dataTables_wrapper {
+        overflow: visible !important;   /* cegah tabel kepotong */
+    }
+
+    /* FOOTER OTOMATIS */
     body:after {
         content: "Dicetak pada: {{ date('d-m-Y H:i') }}";
         display: block;
         text-align: center;
-        margin-top: 30px;
+        margin-top: 40px;
         font-size: 11px;
-        color: #555;
+        color: #333;
+        font-weight: 700;
     }
 }
 </style>
+
 
 
 

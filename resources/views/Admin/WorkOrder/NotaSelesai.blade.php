@@ -1,10 +1,10 @@
-@extends('Kasir.template.main')
+@extends('Admin.template.main')
 
 @section('judul')
-        Dashboard Nota Tambah
+        Data Nota
 @endsection
 @section('Judulisi')
-    <h2>Dashboard Nota Tambah</h2>
+    <h2>Data Nota</h2>
 @endsection
 @section('Content1')
    
@@ -13,7 +13,7 @@
 
     Swal.fire({
     title: "Berhasil",
-    text: "Berhasil Tambah Barang",
+    text: "Berhasil Tambah Nota",
     icon: "success"
     });
 </script>
@@ -67,18 +67,6 @@
     icon: "warning"
     });
 </script>
-          
-  @endif  
-
-@if (session()->has('errorinv'))
-  <script>
-
-    Swal.fire({
-    title: "Gagal",
-    text: "Tambahkan Inventory Yang Keluar Terlebih Dahulu",
-    icon: "error"
-    });
-</script>
       
   @endif
 
@@ -96,15 +84,6 @@
 
     Table Kategori Barang
 -->
-{{-- <div class="d-flex">
-  <form action="/Kasir/sales/Addnota" method="POST" class="mr-2">
-    @csrf
-    <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
-      <i class="fa fa-list" aria-hidden="true"></i> Tambah Nota
-    </button>
-  </form>
-
-</div> --}}
 
 
 
@@ -112,13 +91,14 @@
  <br>
 <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Tambah Nota</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Nota</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                          
                                            <th>Nama Pesanan</th>
                                             <th>Tanggal Terima</th>
                                            
@@ -140,13 +120,23 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Kasir/Sales/NotaItems" method="POST">
+                                                            <form action="/Admin/Sales/notaview" method="POST">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idwo" value="{{ $data['id'] }}">
 
-                                                              <li><button class="dropdown-item" type="submit" name ="add" value ="detail">Tambah Nota</button></li>                                                           
-                                                          
+                                                              @php
+                                                                  if ($data->status =="Piutang") {
+                                                                    # code...
+                                                                    echo'  <li><button class="dropdown-item" type="submit" name ="pelunasan" value ="pelunasan">Lunasi</button></li>';
+                                                                  }else{
+
+                                                                  }
+                                                              @endphp
+
+                                                              <li><button class="dropdown-item" type="submit" name ="detail" value="detail">Detail / Cetak</button></li>
+                                                              <li><button class="dropdown-item" type="submit" name ="history" value="detail">History Transaksi</button></li>
+
                                                             </form>
                                                           </ul>
                                                         </div>

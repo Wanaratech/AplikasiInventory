@@ -16,7 +16,7 @@
                 <div class="col-6">
                     <h5 class="fw-bold">Duta Utama Grafika</h5>
                     <p class="mb-0">Jl TK Irawadi 66 Panjer, Denpasar</p>
-                    <p class="mb-0">Telp: 0361 244061, 8083976, 8955186</p>
+                  
                 </div>
                 <div class="col-6 text-end">
                     <p class="mb-0">Denpasar, {{ $nota->created_at->format('d-m-Y') }}</p>

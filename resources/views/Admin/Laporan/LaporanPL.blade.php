@@ -14,26 +14,66 @@
 <style>
 @media print {
 
-    /* sembunyikan elemen yang tidak boleh ikut tercetak */
+    /* Sembunyikan elemen yang tidak dicetak */
     .no-print,
-    nav,
-    header,
-    aside,
-    .sidebar,
-    .navbar,
-    .topbar,
+    nav, header, aside,
+    .sidebar, .navbar, .topbar,
     footer {
         display: none !important;
     }
 
-    /* khusus area yang ingin dicetak */
+    /* Area print full */
     .print-area {
         width: 100% !important;
-        margin: 0;
-        padding: 0;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Semua teks tebal */
+    .print-area,
+    .print-area * {
+        font-weight: 900 !important;
+        color: #000 !important;
+    }
+
+    /* Hilangkan tampilan DataTables yg mengganggu saat print */
+    .dataTables_length,
+    .dataTables_filter,
+    .dataTables_info,
+    .dataTables_paginate {
+        display: none !important;
+    }
+
+    /* Table harus full width */
+    .dataTables_wrapper {
+        overflow: visible !important;
+    }
+
+    /* BORDER TABEL TEBAL SAAT PRINT */
+    .print-area table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        table-layout: auto !important; /* mencegah kepotong */
+    }
+
+    .print-area table th,
+    .print-area table td {
+        border: 2px solid #000 !important;
+        padding: 6px !important;
+        white-space: normal !important; /* teks panjang tidak kepotong */
+    }
+
+    /* Header lebih mencolok */
+    .print-area table th {
+        background: #eaeaea !important;
+        font-weight: 900 !important;
     }
 }
 </style>
+
+
+
+
 
 {{-- ===================== PRINT AREA WRAPPER START ===================== --}}
 <div class="print-area">
@@ -62,6 +102,7 @@
                             <th>Nomor Nota</th>
                             <th>Nama Pemesan</th>
                             <th>Jenis Pesanan</th>
+                            <th>Detail</th>
                             <th>Total Bayar</th>
                             <th>Dibayarkan</th>
                             <th>Sisa</th>
@@ -82,6 +123,26 @@
                                 <td>{{ $data['id'] }}</td>
                                 <td>{{ $data->ModelwoRS->nama_pesanan }}</td>
                                 <td>{{ $data->ModelwoRS->jenis_pesanan }}</td>
+                                 <td>@php
+                                        $detail = array_filter([
+                                            $data->ModelwoRS->jenis_kertas     ? "Jenis Kertas: {$data->ModelwoRS->jenis_kertas}" : null,
+                                            $data->ModelwoRS->warna_tinta      ? "Warna Tinta: {$data->ModelwoRS->warna_tinta}" : null,
+                                            $data->ModelwoRS->ukuran_cetak     ? "Ukuran Cetak: {$data->ModelwoRS->ukuran_cetak}" : null,
+                                            $data->ModelwoRS->ukuran_jadi      ? "Ukuran Jadi: {$data->ModelwoRS->ukuran_jadi}" : null,
+                                            $data->ModelwoRS->ukuran_rangka    ? "Ukuran Rangka: {$data->ModelwoRS->ukuran_rangka}" : null,
+                                            $data->ModelwoRS->reproduksi       ? "Reproduksi: {$data->ModelwoRS->reproduksi}" : null,
+                                            $data->ModelwoRS->sistemjilid      ? "Sistem Jilid: {$data->ModelwoRS->sistemjilid}" : null,
+                                            $data->ModelwoRS->statusorder      ? "Status Order: {$data->ModelwoRS->statusorder}" : null,
+                                            $data->ModelwoRS->plat             ? "Plat: {$data->ModelwoRS->plat}" : null,
+                                            $data->ModelwoRS->nomoratorstart   ? "Nomorator Start: {$data->ModelwoRS->nomoratorstart}" : null,
+                                            $data->ModelwoRS->isperbuku        ? "Isi Per Buku: {$data->ModelwoRS->isperbuku}" : null,
+                                            $data->ModelwoRS->keterangan       ? "Keterangan: {$data->ModelwoRS->keterangan}" : null,
+                                        ]);
+                                        @endphp
+
+                                        {{ implode(' - ', $detail) }}
+
+                                </td>
                                 <td>Rp.{{ number_format($data['totalbayar'], 0, ',', '.') }}</td>
                                 <td>Rp.{{ number_format($data['deposit'], 0, ',', '.') }}</td>
                                 <td>Rp.{{ number_format($data['sisapembayaran'], 0, ',', '.') }}</td>
@@ -97,7 +158,7 @@
                     </tbody>
 
                     <tfoot>
-                        <th colspan="4"></th>
+                        <th colspan="5"></th>
                         <th>Total Pembayaran : Rp.{{ number_format($totalbayar, 0, ',', '.') }}</th>
                         <th>Total Dibayarkan : Rp.{{ number_format($totaldeposit, 0, ',', '.') }}</th>
                         <th>Total Sisa : Rp.{{ number_format($totalsisa, 0, ',', '.') }}</th>

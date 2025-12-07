@@ -116,6 +116,7 @@ Route::middleware(['auth'])->group(function(){
             route::post('/Admin/WO/InvKeluar','InvKeluar');
             route::post('/Admin/Sales/notaview','notatools');
             route::post('/Admin/Sales/Pelunasan','pelunasan');
+            route::get('/Admin/sales/notaselesai','Notaselesai');
       
             
         });
@@ -201,6 +202,7 @@ Route::middleware(['auth'])->group(function(){
 
             route::post('/Kasir/Sales/notaview','notatools');
               route::post('/Kasir/Sales/Pelunasan','pelunasan');
+                route::get('/Kasir/sales/notaselesai','Notaselesai');
             
         });
 

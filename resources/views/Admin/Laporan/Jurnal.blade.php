@@ -14,34 +14,62 @@
 <style>
 @media print {
 
+    /* Sembunyikan elemen yang tidak dicetak */
     .no-print,
-    header,
-    nav,
-    aside,
-    .sidebar,
-    .main-header,
-    .main-sidebar,
-    .footer,
-    .navbar,
-    .content-header,
-    .topbar {
+    nav, header, aside,
+    .sidebar, .navbar, .topbar,
+    footer {
         display: none !important;
     }
 
+    /* Area print full */
     .print-area {
         width: 100% !important;
-        margin: 0 auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
-    table {
-        font-size: 12px;
+    /* Semua teks tebal */
+    .print-area,
+    .print-area * {
+        font-weight: 900 !important;
+        color: #000 !important;
+    }
+
+    /* Hilangkan tampilan DataTables yg mengganggu saat print */
+    .dataTables_length,
+    .dataTables_filter,
+    .dataTables_info,
+    .dataTables_paginate {
+        display: none !important;
+    }
+
+    /* Table harus full width */
+    .dataTables_wrapper {
+        overflow: visible !important;
+    }
+
+    /* BORDER TABEL TEBAL SAAT PRINT */
+    .print-area table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        table-layout: auto !important; /* mencegah kepotong */
+    }
+
+    .print-area table th,
+    .print-area table td {
+        border: 2px solid #000 !important;
+        padding: 6px !important;
+        white-space: normal !important; /* teks panjang tidak kepotong */
+    }
+
+    /* Header lebih mencolok */
+    .print-area table th {
+        background: #eaeaea !important;
+        font-weight: 900 !important;
     }
 }
-
-.table .text-right { text-align: right; }
-.table .text-center { text-align: center; }
 </style>
-
 
 <div class="container mt-4 print-area">
     <h3 class="text-center mb-1">Jurnal Umum</h3>

@@ -92,7 +92,16 @@
     </button>
   </form>
 
+  <form action="/Kasir/sales/notaselesai" method="GET" class="mr-2">
+    @csrf
+    <button type="submit" name="tambah" value="tambah" class="btn btn-success">
+      <i class="fa fa-address-card" aria-hidden="true"></i> Nota Selesai
+    </button>
+  </form>
+
 </div>
+
+
 
 
 
@@ -100,7 +109,7 @@
  <br>
 <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Barang</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Nota</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -129,7 +138,7 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/Sales/notaview" method="POST">
+                                                            <form action="/Kasir/Sales/notaview" method="POST">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idwo" value="{{ $data['id'] }}">

@@ -292,7 +292,7 @@ function calculateTotal() {
     let sisa = total - deposit;
 
     // Tampilkan dalam format Rupiah
-    document.getElementById('total').value = formatRupiah(total);
+   document.getElementById('total').value = total;
     document.getElementById('sisa').value = formatRupiah(sisa);
 }
 

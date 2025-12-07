@@ -111,7 +111,16 @@ class ControllerWOKasir extends Controller
             return redirect()->route('workorder')->with('msgdone','');
     }
 
+  public function Notaselesai(Request $reqdatawont){
 
+         $reqdatawont  = [
+                
+                'datawo'=>ModelWO::where('Status','=','Selesai')
+                ->get(),
+
+            ];
+        return view('Kasir.WorkOrder.NotaSelesai',$reqdatawont);
+    }
 
     public function toolswo(Request $reqtoolswo){
 
@@ -340,7 +349,7 @@ class ControllerWOKasir extends Controller
 
         if ($cekinv > 0 ) {
             # code...   
-             return view('Admin.WorkOrder.Notaitem',$dataWOfNota);
+             return view('Kasir.WorkOrder.Notaitem',$dataWOfNota);
     }
         else{
              return redirect()->route('notaadd')->with('errorinv',' ');
@@ -582,9 +591,9 @@ class ControllerWOKasir extends Controller
         ];
 
         if ($tools['detail'] !=NULL) {
-        return view('Admin.WorkOrder.DetailNota',$data);
+        return view('Kasir.WorkOrder.DetailNota',$data);
         }elseif ($tools['pelunasan']!=NULL) {
-           return view('Admin.WorkOrder.pelunasan',$data);
+           return view('Kasir.WorkOrder.pelunasan',$data);
         }elseif($tools['history'] !=NUll){
 
         //ambil id wo terlebih dahulu untuk megecek karena pada tabel hostory pembayaran, karena pada fungsi ini idnota tidak terdefinisikan jadi akan diambil melalui modelpembayaran yang mengandung id nota sesuai dengan id wo terpilih
@@ -599,7 +608,7 @@ class ControllerWOKasir extends Controller
         
         ];
 
-         return view('Admin.WorkOrder.HistoryTransaksi',$getdatahistory);
+         return view('Kasir.WorkOrder.HistoryTransaksi',$getdatahistory);
         }
         
        
