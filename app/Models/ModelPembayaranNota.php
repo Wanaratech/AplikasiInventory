@@ -21,8 +21,8 @@ class ModelPembayaranNota extends Model
         return $this->belongsTo(ModelWO::class,'idwo');
     }
 
- public function nota(){
-    return $this->hasMany(ModelNota::class, 'id_pembayaran');
-}
+      public function nota(){
+          return $this->hasMany(ModelNota::class, 'id_pembayaran');
+      }
 
 }
