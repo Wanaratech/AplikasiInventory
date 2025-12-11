@@ -104,7 +104,9 @@
                             <th>Jenis Pesanan</th>
                             <th>Detail WO</th>
                             <th>Penjualan</th>
+                            <th>Mesin</th>
                             <th>Total Bayar</th>
+                            
                             <th>Dibayarkan</th>
                             <th>Sisa</th>
                            
@@ -147,12 +149,14 @@
                                 </td>
                                 <td>@php
                                         $detail = array_filter([
-                                            $data->notaid->barang,
+                                            $data->nota->pluck('barang')->implode(', ')
+
                                             
                                         ]);
                                         @endphp
 
                                         {{ implode(' - ', $detail) }}</td>
+                                        <td>{{ $data->ModelwoRS->plat}}</td>
                                 <td>Rp.{{ number_format($data['totalbayar'], 0, ',', '.') }}</td>
                                 <td>Rp.{{ number_format($data['deposit'], 0, ',', '.') }}</td>
                                 <td>Rp.{{ number_format($data['sisapembayaran'], 0, ',', '.') }}</td>
@@ -168,7 +172,7 @@
                     </tbody>
 
                     <tfoot>
-                        <th colspan="5"></th>
+                        <th colspan="7"></th>
                         <th>Total Pembayaran : Rp.{{ number_format($totalbayar, 0, ',', '.') }}</th>
                         <th>Total Dibayarkan : Rp.{{ number_format($totaldeposit, 0, ',', '.') }}</th>
                         <th>Total Sisa : Rp.{{ number_format($totalsisa, 0, ',', '.') }}</th>

@@ -22,10 +22,12 @@ class ModelNota extends Model
         return $this->belongsTo(ModelWO::class,'id_wo');
     }
     
-      public function pembayaran(){
-        return $this->belongsTo(ModelPembayaranNota::class, 'id_pembayaran');
-    }
+     public function pembayaran()
+{
+    return $this->belongsTo(ModelPembayaranNota::class, 'nomorwo', 'idwo');
+}
 
 
+ 
     
 }
