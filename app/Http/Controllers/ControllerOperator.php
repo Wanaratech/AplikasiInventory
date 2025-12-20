@@ -19,4 +19,14 @@ class ControllerOperator extends Controller
     public function Operatoraddform(){
         return view('Admin.Operator.operatoradd');
     }
+
+    public function OperatorAdd(Request $request){
+        // return $request->all();
+        ModelOperator::create([
+            // 'id'=>$request->id,
+            'nama_operator'=>$request->namaoperator,
+        ]);
+
+        return redirect()->route('OperatorHome')->with('msgdone','');
+    }
 }
