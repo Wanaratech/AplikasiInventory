@@ -155,7 +155,7 @@
                                                               {{-- @if ($data->notaPembelian->status_nota == 'Hutang')
                                                               <li><button class="dropdown-item" type="submit" name ="pelunasan" value ="detail">Lunasi</button></li> --}}
                                                                   
-                                                              @endif
+                                                              
                                                               
                                                                 <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
 
