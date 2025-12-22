@@ -150,6 +150,7 @@
                                                           <ul class="dropdown-menu">
                                                             <form action="/Admin/Pembelian/Detail" method="POST">
                                                               @csrf
+                                                              <input type="text" hidden name="idnota" value="{{ $data->notaPembelian->id }}">
 
                                                               @if ($data->notaPembelian->status_nota == 'Hutang')
                                                               <li><button class="dropdown-item" type="submit" name ="pelunasan" value ="detail">Lunasi</button></li>

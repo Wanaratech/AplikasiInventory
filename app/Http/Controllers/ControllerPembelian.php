@@ -224,17 +224,20 @@ class ControllerPembelian extends Controller
 
 public function DetailPembelian(Request $reqdata){
 
-        $datareq = $reqdata->all();
-
-        if ($datareq['pelunasan'] != NULL) {
+    
+        $pelunasan = $reqdata->pelunasan;
+        $detail = $reqdata->detail;
+        $id = $reqdata->idnota;
+        if ($pelunasan != NULL) {
             # code...
 
             echo "pelunasan";
         }
-        elseif ($datareq['detail'] !=NULL) {
+        elseif ($detail !=NULL) {
             # code...
-
-            echo "detail";
+        $pem = ['pembelianbarang'=>ModelPembelianBarang::where('id_nota_pembelian','=',$id)->with('notaPembelian')->with('barangBeli')->get(),];
+         
+           return view('Admin.Pembelian.detailpembelian',$pem);
         }
 }
 }
