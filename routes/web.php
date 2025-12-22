@@ -166,6 +166,8 @@ Route::middleware(['auth'])->group(function(){
         route::controller(ControllerPembelian::class)->group(function(){
             route::Get('/Admin/Pembelian','PembelianView')->name('PembelianBarang');
             route::Get('/Admin/Pembelian/TambahPembelian','pembeliantambah');
+
+            route::post('/Admin/Pembelian/Process','ProsesPembelian');
         });
         
          

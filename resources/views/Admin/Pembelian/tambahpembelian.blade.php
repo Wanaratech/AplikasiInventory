@@ -7,7 +7,7 @@ Pembelian Barang
 @section('Content1')
 <div class="container mt-4">
 
-<form action="/Admin/WO/InvKeluar" method="POST">
+<form action="/Admin/Pembelian/Process" method="POST">
 @csrf
 
 {{-- ================= HEADER ================= --}}
@@ -19,7 +19,7 @@ Pembelian Barang
 
     <div class="col-md-8">
         <label>Nama Supplier</label>
-        <input type="text" name="supplier_nama" class="form-control" required>
+        <input type="text" required name="supplier_nama" class="form-control" required>
     </div>
 </div>
 
@@ -98,7 +98,23 @@ Pembelian Barang
         <label>Total Harga</label>
         <input type="number" class="form-control" id="total" name="total" readonly>
     </div>
+
+
+
 </div>
+
+
+   <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Catatan</label>
+                <textarea required name="catatan" cols="30" rows="10"  class="form-control"  ></textarea>
+            </div>
+        </div>
+
+
+
+
+
 
 <br>
 <button type="submit" class="btn btn-success">Simpan</button>
