@@ -440,7 +440,7 @@ class ControllerWO extends Controller
 
 
             ]);
-              $inputketbnota->save();
+              
 
             $totalharga+= $inputketbnota['total'];
         }
@@ -475,6 +475,7 @@ class ControllerWO extends Controller
 
         $inputHistory->Save();
         $inpembayaran->save();
+        $inputketbnota->save();
 
 
         //update status dan total harga  di WORK ORDER jika sisa lebih dari 0 maka akan termasuk piutang
