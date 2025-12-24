@@ -10,13 +10,14 @@ use App\Models\ModelHistoryPembayaran;
 use App\Models\ModelInvKeluar;
 use App\Models\MOdelMetodeBayar;
 use App\Models\ModelNota;
+use App\Models\ModelOperator;
 use App\Models\ModelPembayaranNota;
 use App\Models\ModelRekanan;
 use App\Models\ModelStok;
 use App\Models\ModelWO;
-use Carbon\Carbon;
+use Illuminate\Auth\Events\Logout;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ControllerWOKasir extends Controller
 {
@@ -27,7 +28,8 @@ class ControllerWOKasir extends Controller
 
             $reqdatawo  = [
                 
-                'datawo'=>ModelWO::all()
+                'datawo'=>ModelWO::all(),
+                
 
             ];
 
@@ -40,6 +42,7 @@ class ControllerWOKasir extends Controller
         $data = [
 
                 'getdataRekanan' => ModelRekanan::all(),
+                'dataoperator'=>ModelOperator::all(),
         ] ;  
 
         return view ('Kasir.Workorder.WoAdd',$data); 
@@ -69,7 +72,10 @@ class ControllerWOKasir extends Controller
                 'isiperbuku'              => $reqDataWo->isi_perbuku,
                 'harga'                   => $reqDataWo->harga,
                 'keterangan'              => $reqDataWo->keterangan,
-                'status'                  => $status
+                'status'                  => $status,
+                'OperatorCetak'          => $reqDataWo->operatorCetak,
+                'OperatorPotong'         => $reqDataWo->operatorPotong,
+                'operatorProduksi'      => $reqDataWo->operatorProduksi,
 
         ];
 
@@ -104,6 +110,9 @@ class ControllerWOKasir extends Controller
                 'harga'                 => $dataWO['harga'] ?? null,
                 'status'                => $dataWO['status'] ?? null,
                 'keterangan'            => $dataWO['keterangan'] ?? null,
+                'id_operatorcetak'         => $dataWO['OperatorCetak'] ?? null,
+                'id_operatorpotong'        => $dataWO['OperatorPotong'] ?? null,
+                'id_operatorproduksi'     => $dataWO['operatorProduksi'] ?? null,
             ]);
 
 
@@ -111,16 +120,7 @@ class ControllerWOKasir extends Controller
             return redirect()->route('workorder')->with('msgdone','');
     }
 
-  public function Notaselesai(Request $reqdatawont){
 
-         $reqdatawont  = [
-                
-                'datawo'=>ModelWO::where('Status','=','Selesai')
-                ->get(),
-
-            ];
-        return view('Kasir.WorkOrder.NotaSelesai',$reqdatawont);
-    }
 
     public function toolswo(Request $reqtoolswo){
 
@@ -137,7 +137,7 @@ class ControllerWOKasir extends Controller
         if ($toolswo['detail'] != NULL) {
             $data  = [
 
-                'datawoperid' => ModelWO::where('id','=',$toolswo['idwo'])->first(),
+                'datawoperid' => ModelWO::where('id','=',$toolswo['idwo'])->with('wocetak')->with('wopotong')->with('woproduksi')->first(),
                 'datainvwo'=>ModelInvKeluar::where('id_wo','=',$toolswo['idwo'])->with('databarangwo')->get()
             ];
             return view('Kasir.WorkOrder.wodetail',$data);
@@ -319,6 +319,17 @@ class ControllerWOKasir extends Controller
         return view('Kasir.WorkOrder.Nota',$reqdatawont);
     }
 
+    public function Notaselesai(Request $reqdatawont){
+
+         $reqdatawont  = [
+                
+                'datawo'=>ModelWO::where('Status','=','Selesai')
+                ->get(),
+
+            ];
+        return view('Kasir.WorkOrder.NotaSelesai',$reqdatawont);
+    }
+
     public function Addnotavw(){
          $reqdatawont  = [
                 
@@ -411,9 +422,10 @@ class ControllerWOKasir extends Controller
         $bulan  =date('m');
         $dates = date('y-m-d');
         $nonota = $tanggal.$bulan.$idwo;
+        $totalbayar = (int) $datanota['totalharga'];
         $deposit  = (int) preg_replace('/[^0-9]/', '',$datanota['deposit']);
-        $totalbayar  = (int) preg_replace('/[^0-9]/', '',$datanota['totalharga'])/100;
         $sisa = $totalbayar - $deposit;
+
         $totalharga  = 0;
         foreach ($items as $databarang ) {
             $inputketbnota = new ModelNota();
@@ -428,7 +440,7 @@ class ControllerWOKasir extends Controller
 
 
             ]);
-              $inputketbnota->save();
+              
 
             $totalharga+= $inputketbnota['total'];
         }
@@ -463,6 +475,7 @@ class ControllerWOKasir extends Controller
 
         $inputHistory->Save();
         $inpembayaran->save();
+        $inputketbnota->save();
 
 
         //update status dan total harga  di WORK ORDER jika sisa lebih dari 0 maka akan termasuk piutang
@@ -672,14 +685,6 @@ class ControllerWOKasir extends Controller
 
                $updatecoaAsset->save();
                $updatecoapiutang->save();
-
-
-
-
-
-
-
-
       
 
   try {
@@ -744,4 +749,5 @@ class ControllerWOKasir extends Controller
         
 
     }
+       
 }

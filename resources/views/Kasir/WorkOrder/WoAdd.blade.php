@@ -110,7 +110,7 @@
 
 
              <div class="mb-3">
-            <label class="form-label">Plat</label><br>
+            <label class="form-label">Mesin</label><br>
             @foreach ([ 'Gramfus','P 52','P 58','P 72'] as $item)
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="plat" value="{{ $item }}">
@@ -132,6 +132,40 @@
             <div class="col-md-4">
                 <label class="form-label">Isi Perbuku</label>
                 <input type="text" class="form-control" name="isi_perbuku">
+            </div>
+        </div>
+
+         <div class="row mb-3">
+            <div class="col-md-4">
+               <label class="form-label">Operator Cetak</label>
+                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="operatorCetak" class="form-control">                
+                @foreach($dataoperator as $operator)
+                 <option value=" ">--Pilih--</option>
+                    <option value="{{ $operator->id}}">{{ $operator->nama_operator }}</option>
+                @endforeach
+                </select>
+               
+            </div>
+              <div class="col-md-4">
+               <label class="form-label">Operator Potong</label>
+                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="operatorPotong" class="form-control">                
+                @foreach($dataoperator as $operator)
+                 <option value=" ">--Pilih--</option>
+                    <option value="{{ $operator->id}}">{{ $operator->nama_operator }}</option>
+                @endforeach
+                </select>
+               
+            </div>
+              <div class="col-md-4">
+               <label class="form-label">Operator Produksi</label>
+                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="operatorProduksi" class="form-control">                
+                    <option value=" ">--Pilih--</option>
+                    @foreach($dataoperator as $operator)
+                    
+                    <option value="{{ $operator->id}}">{{ $operator->nama_operator }}</option>
+                @endforeach
+                </select>
+               
             </div>
         </div>
 

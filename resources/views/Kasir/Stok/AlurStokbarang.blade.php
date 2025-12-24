@@ -96,14 +96,14 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Kasir/Stok/ToolsalurStok" method="POST">
+                                                            <form action="/Kasir/Stok/ToolsalurStok" method="GET">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idbarang" value="{{ $data['id'] }}">
 
                                                               <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail Stok</button></li>
 
-                                                               
+                                                               <li><button class="dropdown-item" type="submit" name ="opname" value ="opname">Opname Stok</button></li>
 
                                                            
                                                           

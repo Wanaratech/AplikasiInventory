@@ -120,7 +120,7 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Kasir/Sales/notaview" method="POST">
+                                                            <form action="/Kasir/Sales/notaview" method="get">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idwo" value="{{ $data['id'] }}">

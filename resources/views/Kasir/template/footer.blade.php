@@ -76,8 +76,8 @@
     });
 </script>
 
-
 @yield('scripts')
+
 </body>
 
 
