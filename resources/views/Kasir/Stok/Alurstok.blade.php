@@ -74,10 +74,10 @@
           <div class="label">Harga Jual</div>
           <div class="value">Rp {{number_format($databarang->HargaJual, 2, ',', '.')}}</div>
         </div>
-        <div class="col-md-6">
+        {{-- <div class="col-md-6">
           <div class="label">Jumlah Penjualan</div>
           <div class="value">0</div>
-        </div>
+        </div> --}}
       </div>
 
        

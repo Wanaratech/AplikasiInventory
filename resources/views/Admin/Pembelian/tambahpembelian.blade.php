@@ -55,7 +55,7 @@ Pembelian Barang
     </td>
 
     <td>
-        <input type="number" name="items[0][harga_beli]" class="form-control harga" readonly>
+        <input type="number" name="items[0][harga_beli]" class="form-control harga" >
     </td>
 
     <td>
@@ -188,7 +188,7 @@ document.getElementById('addRow').addEventListener('click', function(){
             <input type="number" name="items[${rowIndex}][jumlah]" class="form-control jumlah" min="1">
         </td>
         <td>
-            <input type="number" name="items[${rowIndex}][harga_beli]" class="form-control harga" readonly>
+            <input type="number" name="items[${rowIndex}][harga_beli]" class="form-control harga">
         </td>
         <td>
             <input type="number" name="items[${rowIndex}][subtotal]" class="form-control subtotal" readonly>

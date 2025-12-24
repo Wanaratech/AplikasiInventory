@@ -3,64 +3,39 @@
 @section('judul')
         Detail Work Order
 @endsection
+
 @section('Judulisi')
     <h2>Detail Work Order</h2>
 @endsection
+
 @section('Content1')
-   
+
 @if (session()->has('msgdone'))
-  <script>
-
-    Swal.fire({
-    title: "Berhasil",
-    text: "Berhasil Tambah Barang",
-    icon: "success"
-    });
+<script>
+Swal.fire({ title: "Berhasil", text: "Berhasil Tambah Barang", icon: "success" });
 </script>
-      
-  @endif
+@endif
 
-  @if (session()->has('msgdoneEdt'))
-  <script>
-
-    Swal.fire({
-    title: "Berhasil",
-    text: "Berhasil Edit Barang",
-    icon: "success"
-    });
+@if (session()->has('msgdoneEdt'))
+<script>
+Swal.fire({ title: "Berhasil", text: "Berhasil Edit Barang", icon: "success" });
 </script>
-      
-  @endif
+@endif
 
-  @if (session()->has('msgdonehps'))
-  <script>
-
-    Swal.fire({
-    title: "Berhasil",
-    text: "Berhasil Dihapus ",
-    icon: "success"
-    });
+@if (session()->has('msgdonehps'))
+<script>
+Swal.fire({ title: "Berhasil", text: "Berhasil Dihapus", icon: "success" });
 </script>
-      
-  @endif
+@endif
 
- 
-    @if (session()->has('gagal'))
-  <script>
-
-    Swal.fire({
-    title: "Gagal",
-    text: "Kesalahan",
-    icon: "error"
-    });
+@if (session()->has('gagal'))
+<script>
+Swal.fire({ title: "Gagal", text: "Kesalahan", icon: "error" });
 </script>
-      
-  @endif
+@endif
 
-  @if(session('msgerror'))
-    <div class="alert alert-danger">
-        {{ session('msgerror') }}
-    </div>
+@if(session('msgerror'))
+<div class="alert alert-danger">{{ session('msgerror') }}</div>
 @endif
 
 <div class="container mt-4">
@@ -74,97 +49,107 @@
                 <span class="badge bg-success">{{ $datawoperid->status }}</span>
             </div>
         </div>
+
         <div class="card-body">
 
-          <!-- Data Work Order -->
-<div class="row mb-4">
-    <div class="col-md-6">
-        <table class="table table-sm table-striped">
-            <tr><th>Diterima Tgl</th><td>{{ $datawoperid->diterimaTanggal }}</td></tr>
-            <tr><th>Selesai Tgl</th><td>{{ $datawoperid->selesaiTanggal }}</td></tr>
-            <tr><th>Nama Pemesan</th><td>{{ $datawoperid->nama_pesanan }}</td></tr>
-            <tr><th>Jenis Pesanan</th><td>{{ $datawoperid->jenis_pesanan }}</td></tr>
-            <tr><th>Jumlah Pesanan</th><td>{{ $datawoperid->jumlah_pesanan }}</td></tr>
-            <tr><th>Jml Kertas Dicetak</th><td>{{ $datawoperid->jumlah_kertasdicetak }}</td></tr>
-            <tr><th>Jenis Kertas</th><td>{{ $datawoperid->jenis_kertas }}</td></tr>
-            <tr><th>Warna Tinta</th><td>{{ $datawoperid->warna_tinta }}</td></tr>
-            <tr><th>Nomorator Start</th><td>{{ $datawoperid->nomoratorstart }}</td></tr>
-        </table>
-    </div>
-    <div class="col-md-6">
-        <table class="table table-sm table-striped">
-            <tr><th>Ukuran Cetak</th><td>{{ $datawoperid->ukuran_cetak }}</td></tr>
-            <tr><th>Ukuran Jadi</th><td>{{ $datawoperid->ukuran_jadi }}</td></tr>
-            <tr><th>Rangka/Susunan</th><td>{{ $datawoperid->ukuran_rangkapsusun }}</td></tr>
-            <tr><th>Reproduksi</th><td>{{ $datawoperid->reproduksi }}</td></tr>
-            <tr><th>Sistem Jilid</th><td>{{ $datawoperid->sistemjilid }}</td></tr>
-            <tr><th>Status Order</th><td>{{ $datawoperid->statusorder }}</td></tr>
-            <tr><th>Plat</th><td>{{ $datawoperid->plat }}</td></tr>
-            <tr><th>Operator Cetak</th><td>{{ $datawoperid->wocetak->nama_operator ?? 'N/A' }}</td></tr>
-            <tr><th>Operator Potong</th><td>{{ $datawoperid->wopotong->nama_operator ?? 'N/A' }}</td></tr>
-            <tr><th>Operator Produksi</th><td>{{ $datawoperid->woproduksi->nama_operator ?? 'N/A' }}</td></tr>
-        </table>
-    </div>
-</div>
+            {{-- DATA WORK ORDER --}}
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <table class="table table-sm table-striped">
+                        <tr><th>Diterima Tgl</th><td>{{ $datawoperid->diterimaTanggal }}</td></tr>
+                        <tr><th>Selesai Tgl</th><td>{{ $datawoperid->selesaiTanggal }}</td></tr>
+                        <tr><th>Nama Pemesan</th><td>{{ $datawoperid->nama_pesanan }}</td></tr>
+                        <tr><th>Jenis Pesanan</th><td>{{ $datawoperid->jenis_pesanan }}</td></tr>
+                        <tr><th>Jumlah Pesanan</th><td>{{ $datawoperid->jumlah_pesanan }}</td></tr>
+                        <tr><th>Jml Kertas Dicetak</th><td>{{ $datawoperid->jumlah_kertasdicetak }}</td></tr>
+                        <tr><th>Jenis Kertas</th><td>{{ $datawoperid->jenis_kertas }}</td></tr>
+                        <tr><th>Warna Tinta</th><td>{{ $datawoperid->warna_tinta }}</td></tr>
+                        <tr><th>Nomorator Start</th><td>{{ $datawoperid->nomoratorstart }}</td></tr>
+                    </table>
+                </div>
 
-<!-- Harga -->
-<div class="mb-4">
-    <h6 class="text-primary"><i class="bi bi-cash-coin me-2"></i> Harga</h6>
-    <div class="p-3 bg-light border rounded text-end">
-        <h4 class="mb-0 text-success"><strong>Total: Rp {{ number_format($datawoperid->harga, 0, ',', '.') }}</strong></h4>
-    </div>
-</div>
+                <div class="col-md-6">
+                    <table class="table table-sm table-striped">
+                        <tr><th>Ukuran Cetak</th><td>{{ $datawoperid->ukuran_cetak }}</td></tr>
+                        <tr><th>Ukuran Jadi</th><td>{{ $datawoperid->ukuran_jadi }}</td></tr>
+                        <tr><th>Rangka/Susunan</th><td>{{ $datawoperid->ukuran_rangkapsusun }}</td></tr>
+                        <tr><th>Reproduksi</th><td>{{ $datawoperid->reproduksi }}</td></tr>
+                        <tr><th>Sistem Jilid</th><td>{{ $datawoperid->sistemjilid }}</td></tr>
+                        <tr><th>Status Order</th><td>{{ $datawoperid->statusorder }}</td></tr>
+                        <tr><th>Plat</th><td>{{ $datawoperid->plat }}</td></tr>
+                        <tr><th>Operator Cetak</th><td>{{ $datawoperid->wocetak->nama_operator ?? 'N/A' }}</td></tr>
+                        <tr><th>Operator Potong</th><td>{{ $datawoperid->wopotong->nama_operator ?? 'N/A' }}</td></tr>
+                        <tr><th>Operator Produksi</th><td>{{ $datawoperid->woproduksi->nama_operator ?? 'N/A' }}</td></tr>
+                    </table>
+                </div>
+            </div>
 
-<!-- Rincian Tambahan / Keterangan -->
-<h6 class="text-primary"><i class="bi bi-list-check me-2"></i> Rincian Tambahan</h6>
-<div class="border rounded bg-light p-3">
-    <pre class="mb-0">{{ $datawoperid->keterangan }}</pre>
-</div>
+            {{-- HARGA --}}
+            <div class="mb-4">
+                <h6 class="text-primary"><i class="bi bi-cash-coin me-2"></i> Harga</h6>
+                <div class="p-3 bg-light border rounded text-end">
+                    <h4 class="mb-0 text-success">
+                        <strong>Total: Rp {{ number_format($datawoperid->harga, 0, ',', '.') }}</strong>
+                    </h4>
+                </div>
+            </div>
+
+            {{-- KETERANGAN --}}
+            <h6 class="text-primary"><i class="bi bi-list-check me-2"></i> Rincian Tambahan</h6>
+            <div class="border rounded bg-light p-3">
+                <pre class="mb-0">{{ $datawoperid->keterangan }}</pre>
+            </div>
 
         </div>
     </div>
 </div>
 
+<br>
 
- <br>
 <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Barang</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                           <th>Nama Barang</th>
-                                            <th>Qty Keluar</th>
-                                           
-                                            
-                                        </tr>
-                                    </thead>
-                                    
-                                    <tbody>
-                                       @foreach ($datainvwo as $data)
-                                            <tr>
-                                               <td>{{ $data->databarangwo->nama_barang }}</td>
-                                              <td>{{ $data->qty }}</td>
-                                             
-                                                                                    
-                                            </tr>
-                                       @endforeach
-                                       
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>  
-                  </div>
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Data Barang</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%">
+                <thead>
+                    <tr>
+                        <th>Nama Barang</th>
+                        <th>Qty Keluar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($datainvwo as $data)
+                    <tr>
+                        <td>{{ $data->databarangwo->nama_barang }}</td>
+                        <td>{{ $data->qty }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-
+{{-- ===================== DOT MATRIX PRINT STYLE ===================== --}}
 <style>
 @media print {
 
-    /* Sembunyikan elemen yang tidak dicetak */
+    * {
+        color: #000 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        font-weight: 900 !important;
+    }
+
+    body {
+        font-family: "Courier New", Courier, monospace !important;
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+        margin: 0;
+    }
+
     .no-print,
     .sidebar,
     .navbar,
@@ -175,66 +160,40 @@
         display: none !important;
     }
 
-    /* Area konten agar full kertas */
     .content-wrapper,
     .container,
     .card {
+        width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-        width: 100% !important;
-        box-shadow: none !important;
         border: none !important;
     }
 
-    body {
-        background: #fff !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        font-size: 13px !important;
-        line-height: 1.35;
-    }
-
-    /* Teks tebal */
-    .container *,
-    .card *,
-    table *,
-    #printArea * {
-        font-weight: 900 !important;
-        color: #000 !important;
-    }
-
-    /* TABEL FULL WIDTH */
     table {
         width: 100% !important;
         border-collapse: collapse !important;
-        table-layout: auto !important;
+        table-layout: fixed !important;
     }
 
-    /* BORDER TEBAL */
     table th,
     table td {
         border: 2px solid #000 !important;
-        padding: 6px 8px !important;
+        padding: 4px 6px !important;
         vertical-align: top !important;
-        white-space: normal !important;
     }
 
-    /* HEADER TABEL */
     table th {
-        background: #eaeaea !important;
-        font-size: 13px !important;
+        text-align: center !important;
+        background: #fff !important;
     }
 
-    /* Rincian tambahan <pre> */
     pre {
-        font-family: inherit !important;
-        white-space: pre-wrap !important;
+        font-family: "Courier New", monospace !important;
         border: 2px solid #000 !important;
-        padding: 8px !important;
-        background: #f9f9f9 !important;
+        padding: 6px !important;
+        white-space: pre-wrap !important;
     }
 
-    /* Hilangkan DataTables control */
     .dataTables_length,
     .dataTables_filter,
     .dataTables_info,
@@ -242,26 +201,15 @@
         display: none !important;
     }
 
-    .dataTables_wrapper {
-        overflow: visible !important;   /* cegah tabel kepotong */
-    }
-
-    /* FOOTER OTOMATIS */
     body:after {
-        content: "Dicetak pada: {{ date('d-m-Y H:i') }}";
+        content: "Dicetak pada {{ date('d-m-Y H:i') }}";
         display: block;
         text-align: center;
-        margin-top: 40px;
-        font-size: 11px;
-        color: #333;
+        margin-top: 20px;
+        font-size: 10px;
         font-weight: 700;
     }
 }
 </style>
-
-
-
-
-
 
 @endsection

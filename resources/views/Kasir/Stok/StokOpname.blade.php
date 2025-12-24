@@ -21,7 +21,7 @@
 
 
 
-   <form method="POST" action="/Admin/Stok/Opname">
+   <form method="POST" action="/Kasir/Stok/Opname">
     @csrf
 
     <input type="text" hidden value  = {{$barang['id']}} name="id">

@@ -110,7 +110,7 @@
 
 
              <div class="mb-3">
-            <label class="form-label">Plat</label><br>
+            <label class="form-label">Mesin</label><br>
             @foreach ([ 'Gramfus','P 52','P 58','P 72'] as $item)
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="plat" value="{{ $item }}">

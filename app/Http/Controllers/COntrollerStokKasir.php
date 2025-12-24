@@ -11,13 +11,14 @@ use Illuminate\Http\Request;
 class COntrollerStokKasir extends Controller
 {
    
+    
     public function JumlahStokBarangView(){
         $getdataStok=[
 
             'datastok'=>ModelStok::with('barangist')->get()
         ];
 
-        return view('Admin.Stok.StokBarang',$getdataStok);
+        return view('Kasir.Stok.StokBarang',$getdataStok);
     }
     public function StokControllview( ){
 
@@ -29,7 +30,7 @@ class COntrollerStokKasir extends Controller
 
         ];  
 
-        return view('Admin.Stok.AlurStokbarang',$gatdaatstokforalur);
+        return view('Kasir.Stok.AlurStokbarang',$gatdaatstokforalur);
 
 
         
@@ -53,7 +54,7 @@ class COntrollerStokKasir extends Controller
                                             ->with('barangidAl')->get()
             ];
 
-            return view('Admin.Stok.Alurstok',$GetAlldatabarang);
+            return view('Kasir.Stok.Alurstok',$GetAlldatabarang);
 
            
         }elseif($tools['opname'] != NULL){
@@ -61,7 +62,7 @@ class COntrollerStokKasir extends Controller
                     'barang'=>ModelBarang::Where('id','=',$id)->first()
                 ];
 
-                return view('Admin.Stok.StokOpname',$GetData);
+                return view('Kasir.Stok.StokOpname',$GetData);
             
 
             
